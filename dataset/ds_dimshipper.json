@@ -1,0 +1,33 @@
+{
+	"name": "ds_dimshipper",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_kumar",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kumar"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKShipperID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ShipperID",
+				"type": "varchar"
+			},
+			{
+				"name": "Shipper",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimShipper_KV"
+		}
+	}
+}
