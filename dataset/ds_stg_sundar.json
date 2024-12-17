@@ -1,10 +1,6 @@
 {
 	"name": "ds_stg_sundar",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "ls_tvsdw_Sundar",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
