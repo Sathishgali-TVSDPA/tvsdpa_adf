@@ -422,13 +422,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_source",
+						"referenceName": "ds_source_sg",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_tvsdw",
+						"referenceName": "ds_tvsdw_sg",
 						"type": "DatasetReference"
 					}
 				]
