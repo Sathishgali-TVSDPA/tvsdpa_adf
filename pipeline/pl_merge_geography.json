@@ -1,0 +1,31 @@
+{
+	"name": "pl_merge_geography",
+	"properties": {
+		"activities": [
+			{
+				"name": "SP_Merge_Geography",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[usp_load_stg_dimgeography_merge_KV]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_kumar",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Kumar/Merge"
+		},
+		"annotations": []
+	}
+}
