@@ -1,0 +1,34 @@
+{
+	"name": "ds_sink_shipper",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_stg_dim",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Naveen"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKShipperID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ShipperID",
+				"type": "varchar"
+			},
+			{
+				"name": "Shipper",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimShipper"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

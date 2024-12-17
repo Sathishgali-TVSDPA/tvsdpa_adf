@@ -1,0 +1,9 @@
+{
+	"name": "adf-tvsdpa-dev-005",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d2355998-f846-4948-bb8f-006f214facc5",
+		"tenantId": "1b036738-cfd2-41a3-8d24-701cdef749c8"
+	}
+}

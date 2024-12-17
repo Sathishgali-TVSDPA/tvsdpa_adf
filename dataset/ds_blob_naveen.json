@@ -1,0 +1,148 @@
+{
+	"name": "ds_blob_naveen",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_naveen",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Naveen"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "*.csv",
+				"container": "tvsdparawfiles"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "OrderDate",
+				"type": "String"
+			},
+			{
+				"name": "ShippingDate",
+				"type": "String"
+			},
+			{
+				"name": "DeliveryDate",
+				"type": "String"
+			},
+			{
+				"name": "DivisionID",
+				"type": "String"
+			},
+			{
+				"name": "DivisionName",
+				"type": "String"
+			},
+			{
+				"name": "DivisionAddress",
+				"type": "String"
+			},
+			{
+				"name": "DivisionPostalCode",
+				"type": "String"
+			},
+			{
+				"name": "DivisionCity",
+				"type": "String"
+			},
+			{
+				"name": "DivisionState",
+				"type": "String"
+			},
+			{
+				"name": "DivisionCountry",
+				"type": "String"
+			},
+			{
+				"name": "DivisionPhone",
+				"type": "String"
+			},
+			{
+				"name": "DealerID",
+				"type": "String"
+			},
+			{
+				"name": "DealerName",
+				"type": "String"
+			},
+			{
+				"name": "DealerAddress",
+				"type": "String"
+			},
+			{
+				"name": "DealerPostalCode",
+				"type": "String"
+			},
+			{
+				"name": "DealerCity",
+				"type": "String"
+			},
+			{
+				"name": "DealerState",
+				"type": "String"
+			},
+			{
+				"name": "DealerCountry",
+				"type": "String"
+			},
+			{
+				"name": "DealerPhone",
+				"type": "String"
+			},
+			{
+				"name": "MarketID",
+				"type": "String"
+			},
+			{
+				"name": "Market",
+				"type": "String"
+			},
+			{
+				"name": "MarketCategoryID",
+				"type": "String"
+			},
+			{
+				"name": "MarketCategory",
+				"type": "String"
+			},
+			{
+				"name": "ProductID",
+				"type": "String"
+			},
+			{
+				"name": "Product",
+				"type": "String"
+			},
+			{
+				"name": "ShipperID",
+				"type": "String"
+			},
+			{
+				"name": "Shipper",
+				"type": "String"
+			},
+			{
+				"name": "Quantity",
+				"type": "String"
+			},
+			{
+				"name": "UnitPrice",
+				"type": "String"
+			},
+			{
+				"name": "Discount",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
