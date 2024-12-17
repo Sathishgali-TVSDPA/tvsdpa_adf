@@ -1,0 +1,65 @@
+{
+	"name": "pl_load_dimgeography",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data for dimgeography",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT DISTINCT tvs.DealerAddress as [Address],tvs.DealerPostalCode as PostalCode,\ntvs.DealerCity as City,tvs.DealerState as [State],tvs.DealerCountry as Country,tvs.DealerPhone as Phone\nFROM [stg].[StagingTVS] as tvs\nUNION ALL\nSELECT DISTINCT tvs.DivisionAddress as [Address],tvs.DivisionPostalCode as PostalCode,\ntvs.DivisionCity as City,tvs.DivisionState as state, \ntvs.DivisionCountry as Country,tvs.DivisionPhone as Phone\nFROM [stg].[StagingTVS] as tvs",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"PostalCode"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_tvsdw_naveen",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sink_dimgeography",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Naveen/upsert"
+		},
+		"annotations": []
+	}
+}
