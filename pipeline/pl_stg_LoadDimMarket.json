@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select distinct marketid,market from [stg].[StagingTVS_Sundar]",
+						"sqlReaderQuery": "SELECT DISTINCT MarketID,Market\nFROM [stg].[StagingTVS_Sundar]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
