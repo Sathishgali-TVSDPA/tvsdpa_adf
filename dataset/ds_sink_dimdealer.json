@@ -1,0 +1,35 @@
+{
+	"name": "ds_sink_dimdealer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_naveen",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKDealerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DealerID",
+				"type": "varchar"
+			},
+			{
+				"name": "DealerName",
+				"type": "varchar"
+			},
+			{
+				"name": "FKGeographyID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimDealer"
+		}
+	}
+}
