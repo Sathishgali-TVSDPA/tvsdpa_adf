@@ -1,0 +1,16 @@
+{
+	"name": "ds_sink_dimshipper",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimShipper_Sundar"
+		}
+	}
+}
