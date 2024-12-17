@@ -1,0 +1,30 @@
+{
+	"name": "ds_source_dimmarket",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_naveen",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketID",
+				"type": "varchar"
+			},
+			{
+				"name": "Market",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarket"
+		}
+	}
+}
