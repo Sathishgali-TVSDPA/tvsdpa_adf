@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT DW.ShipperID,DW.Shipper\nFROM [stg].[StagingTVS]",
+						"sqlReaderQuery": "SELECT DISTINCT ShipperID,Shipper\nFROM [stg].[StagingTVS_Sundar]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
