@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copydata_stg_DIMMarket",
+				"name": "Copydata_stg_DimMarket",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
