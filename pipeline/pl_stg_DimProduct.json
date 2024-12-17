@@ -1,0 +1,65 @@
+{
+	"name": "pl_stg_DimProduct",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copydat_DimProduct",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT DISTINCT ST.[ProductID]\n\t\t,ST.[Product]\n\t\t,DMC.[PKMarketCategoryID] AS [FKMarketCategoryID]\n\tFROM [stg].[StagingTVS_Sundar] ST\n\tINNER JOIN [DW].[DimMarketCategory_Sundar] DMC ON ST.MarketCategoryID = DMC.MarketCategoryID",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"ProductID"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_Staging",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_DimProduct",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Sundar/Upsert"
+		},
+		"annotations": []
+	}
+}

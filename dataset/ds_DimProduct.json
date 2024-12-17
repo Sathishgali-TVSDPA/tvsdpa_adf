@@ -1,0 +1,35 @@
+{
+	"name": "ds_DimProduct",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKProductID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProductID",
+				"type": "varchar"
+			},
+			{
+				"name": "Product",
+				"type": "varchar"
+			},
+			{
+				"name": "FKMarketCategoryID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimProduct_Sundar"
+		}
+	}
+}
