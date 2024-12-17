@@ -1,0 +1,30 @@
+{
+	"name": "ds_DimMarket",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketID",
+				"type": "varchar"
+			},
+			{
+				"name": "Market",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarket_Sundar"
+		}
+	}
+}
