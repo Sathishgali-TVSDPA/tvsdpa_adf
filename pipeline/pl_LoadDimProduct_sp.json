@@ -1,0 +1,31 @@
+{
+	"name": "pl_LoadDimProduct_sp",
+	"properties": {
+		"activities": [
+			{
+				"name": "sp_LoadDimProduct",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[DW].[usp_LoadDimProduct_Sundar]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_Sundar",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Sundar"
+		},
+		"annotations": []
+	}
+}
