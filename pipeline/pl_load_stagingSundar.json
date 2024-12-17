@@ -1,5 +1,5 @@
 {
-	"name": "pl_load_DimShipper",
+	"name": "pl_load_stagingSundar",
 	"properties": {
 		"activities": [
 			{
@@ -20,6 +20,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
+							"wildcardFileName": "*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
