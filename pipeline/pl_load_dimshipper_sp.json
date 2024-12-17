@@ -1,5 +1,5 @@
 {
-	"name": "pl_merge_shipper",
+	"name": "pl_load_dimshipper_sp",
 	"properties": {
 		"activities": [
 			{

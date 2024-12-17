@@ -1,5 +1,5 @@
 {
-	"name": "pl_merge_geography",
+	"name": "pl_load_dimgeography_sp",
 	"properties": {
 		"activities": [
 			{
