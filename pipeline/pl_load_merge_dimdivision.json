@@ -1,0 +1,28 @@
+{
+	"name": "pl_load_merge_dimdivision",
+	"properties": {
+		"activities": [
+			{
+				"name": "Stored procedure for dimdivision",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Naveen/Merge"
+		},
+		"annotations": []
+	}
+}
