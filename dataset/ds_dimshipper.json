@@ -1,0 +1,22 @@
+{
+	"name": "ds_dimshipper",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKShipperID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ShipperID",
+				"type": "varchar"
+			},
+			{
+				"name": "Shipper",
+				"type": "varchar"
+			}
+		]
+	}
+}
