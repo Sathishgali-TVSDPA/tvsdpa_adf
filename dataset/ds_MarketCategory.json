@@ -1,0 +1,35 @@
+{
+	"name": "ds_MarketCategory",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketCategoryID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketCategoryID",
+				"type": "varchar"
+			},
+			{
+				"name": "MarketCategory",
+				"type": "varchar"
+			},
+			{
+				"name": "FKMarketID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarketCategory_Sundar"
+		}
+	}
+}
