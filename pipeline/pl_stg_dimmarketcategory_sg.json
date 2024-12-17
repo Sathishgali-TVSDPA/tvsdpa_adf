@@ -1,9 +1,9 @@
 {
-	"name": "pl_stg_dimshipper_sg",
+	"name": "pl_stg_dimmarketcategory_sg",
 	"properties": {
 		"activities": [
 			{
-				"name": "stg-dimshipper",
+				"name": "stg-dimmarketcategory",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_dimshipper_sg]",
+						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_dimmarketcategory_sg]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -27,7 +27,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"ShipperID"
+								"MarketCategoryID"
 							]
 						},
 						"sqlWriterUseTableLock": false,
@@ -51,7 +51,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_sink_shipper_sg",
+						"referenceName": "ds_sink_marketcategory_sg",
 						"type": "DatasetReference"
 					}
 				]
