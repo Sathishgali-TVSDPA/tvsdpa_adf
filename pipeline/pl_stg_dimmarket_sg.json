@@ -1,9 +1,9 @@
 {
-	"name": "pl_stg_dimdivision_sg",
+	"name": "pl_stg_dimmarket_sg",
 	"properties": {
 		"activities": [
 			{
-				"name": "stg-dimdivision",
+				"name": "stg-dimmarket",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_dimdivision_sg]",
+						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_DimMarket_sg]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -27,7 +27,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"DivisionID"
+								"MarketID"
 							]
 						},
 						"sqlWriterUseTableLock": false,
@@ -45,13 +45,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_tvsdw_sg",
+						"referenceName": "ds_source_stg",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_sink_division_sg",
+						"referenceName": "ds_sink_market_sg",
 						"type": "DatasetReference"
 					}
 				]
