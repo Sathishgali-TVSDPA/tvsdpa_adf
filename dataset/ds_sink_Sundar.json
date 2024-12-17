@@ -1,10 +1,6 @@
 {
 	"name": "ds_sink_Sundar",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "ls_tvsdw_Sundar",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
@@ -167,8 +163,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "stg",
-			"table": "StagingTVS_Sundar"
+			"schema": "DW",
+			"table": "DimShipper_Sundar"
 		}
 	}
 }
