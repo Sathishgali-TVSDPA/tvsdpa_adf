@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT st.DealerAddress\n\t\t,st.DealerPostalCode\n\t\t,st.DealerCity\n\t\t,st.DealerState\n\t\t,st.DealerCountry\n\t\t,st.DealerPhone\n\tFROM [stg].[StagingTVS] AS st\n\t\n\tUNION ALL\n\t\n\tSELECT DISTINCT st.DivisionAddress\n\t\t,st.DivisionPostalCode\n\t\t,st.DivisionCity\n\t\t,st.DivisionState\n\t\t,st.DivisionCountry\n\t\t,st.DivisionPhone\n\tFROM [stg].[StagingTVS] AS st",
+						"sqlReaderQuery": "SELECT DISTINCT st.DealerAddress as Address\n\t\t,st.DealerPostalCode as PostalCode\n\t\t,st.DealerCity as City\n\t\t,st.DealerState as State\n\t\t,st.DealerCountry as Country\n\t\t,st.DealerPhone as PhoneNumber\n\tFROM [stg].[StagingTVS_Sundar] AS st\n\t\n\tUNION ALL\n\t\n\tSELECT DISTINCT st.DivisionAddress as Address\n\t\t,st.DivisionPostalCode as PostalCode\n\t\t,st.DivisionCity as City\n\t\t,st.DivisionState as State\n\t\t,st.DivisionCountry as Country\n\t\t,st.DivisionPhone as PhoneNumber\n\tFROM [stg].[StagingTVS_Sundar] AS st",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
