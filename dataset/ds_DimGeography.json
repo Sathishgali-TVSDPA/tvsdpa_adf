@@ -1,0 +1,47 @@
+{
+	"name": "ds_DimGeography",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKGeographyID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Address",
+				"type": "varchar"
+			},
+			{
+				"name": "PostalCode",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "City",
+				"type": "varchar"
+			},
+			{
+				"name": "State",
+				"type": "varchar"
+			},
+			{
+				"name": "Country",
+				"type": "varchar"
+			},
+			{
+				"name": "PhoneNumber",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimGeography_Sundar"
+		}
+	}
+}

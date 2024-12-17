@@ -1,0 +1,65 @@
+{
+	"name": "pl_stg_DimGeography",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copydata_DimGeography",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT DISTINCT st.DealerAddress\n\t\t,st.DealerPostalCode\n\t\t,st.DealerCity\n\t\t,st.DealerState\n\t\t,st.DealerCountry\n\t\t,st.DealerPhone\n\tFROM [stg].[StagingTVS] AS st\n\t\n\tUNION ALL\n\t\n\tSELECT DISTINCT st.DivisionAddress\n\t\t,st.DivisionPostalCode\n\t\t,st.DivisionCity\n\t\t,st.DivisionState\n\t\t,st.DivisionCountry\n\t\t,st.DivisionPhone\n\tFROM [stg].[StagingTVS] AS st",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"PostalCode"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_Staging",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_DimGeography",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Sundar/Upsert"
+		},
+		"annotations": []
+	}
+}
