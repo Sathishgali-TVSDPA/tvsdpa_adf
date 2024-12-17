@@ -1,0 +1,99 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-tvsdpa-dev-005"
+		},
+		"ls_blob_naveen_connectionString": {
+			"value": ""
+		},
+		"ls_stg_dim_password": {
+			"value": ""
+		},
+		"ls_stg_dimmarket_password": {
+			"value": ""
+		},
+		"ls_tvsblob_kumar_connectionString": {
+			"value": ""
+		},
+		"ls_tvsblob_lalith_connectionString": {
+			"value": ""
+		},
+		"ls_tvsblob_sathish_connectionString": {
+			"value": ""
+		},
+		"ls_tvsdw_kumar_password": {
+			"value": ""
+		},
+		"ls_tvsdw_lalith_password": {
+			"value": ""
+		},
+		"ls_tvsdw_naveen_password": {
+			"value": ""
+		},
+		"ls_tvsdw_sathish_password": {
+			"value": ""
+		},
+		"ls_stg_dim_properties_typeProperties_server": {
+			"value": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_stg_dim_properties_typeProperties_database": {
+			"value": "sqldb-tvsdw-dev"
+		},
+		"ls_stg_dim_properties_typeProperties_userName": {
+			"value": "tvsdwadmin"
+		},
+		"ls_stg_dimmarket_properties_typeProperties_server": {
+			"value": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_stg_dimmarket_properties_typeProperties_database": {
+			"value": "sqldb-tvsdw-dev"
+		},
+		"ls_stg_dimmarket_properties_typeProperties_userName": {
+			"value": "tvsdwadmin"
+		},
+		"ls_tvsdw_kumar_properties_typeProperties_server": {
+			"value": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_kumar_properties_typeProperties_database": {
+			"value": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_kumar_properties_typeProperties_userName": {
+			"value": "tvsdwadmin"
+		},
+		"ls_tvsdw_lalith_properties_typeProperties_server": {
+			"value": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_lalith_properties_typeProperties_database": {
+			"value": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_lalith_properties_typeProperties_userName": {
+			"value": "tvsdwadmin"
+		},
+		"ls_tvsdw_naveen_properties_typeProperties_server": {
+			"value": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_naveen_properties_typeProperties_database": {
+			"value": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_naveen_properties_typeProperties_userName": {
+			"value": "tvsdwadmin"
+		},
+		"ls_tvsdw_sathish_properties_typeProperties_server": {
+			"value": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_sathish_properties_typeProperties_database": {
+			"value": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_sathish_properties_typeProperties_userName": {
+			"value": "tvsdwadmin"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

@@ -1,0 +1,1280 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-tvsdpa-dev-005"
+		},
+		"ls_blob_naveen_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_blob_naveen'"
+		},
+		"ls_stg_dim_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_stg_dim'"
+		},
+		"ls_stg_dimmarket_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_stg_dimmarket'"
+		},
+		"ls_tvsblob_kumar_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_tvsblob_kumar'"
+		},
+		"ls_tvsblob_lalith_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_tvsblob_lalith'"
+		},
+		"ls_tvsblob_sathish_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_tvsblob_sathish'"
+		},
+		"ls_tvsdw_kumar_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_tvsdw_kumar'"
+		},
+		"ls_tvsdw_lalith_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_tvsdw_lalith'"
+		},
+		"ls_tvsdw_naveen_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_tvsdw_naveen'"
+		},
+		"ls_tvsdw_sathish_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_tvsdw_sathish'"
+		},
+		"ls_stg_dim_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_stg_dim_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-tvsdw-dev"
+		},
+		"ls_stg_dim_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "tvsdwadmin"
+		},
+		"ls_stg_dimmarket_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_stg_dimmarket_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-tvsdw-dev"
+		},
+		"ls_stg_dimmarket_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "tvsdwadmin"
+		},
+		"ls_tvsdw_kumar_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_kumar_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_kumar_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "tvsdwadmin"
+		},
+		"ls_tvsdw_lalith_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_lalith_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_lalith_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "tvsdwadmin"
+		},
+		"ls_tvsdw_naveen_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_naveen_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_naveen_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "tvsdwadmin"
+		},
+		"ls_tvsdw_sathish_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqls-tvsdpa-dev-001.database.windows.net"
+		},
+		"ls_tvsdw_sathish_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqldb-tvsdw-dev"
+		},
+		"ls_tvsdw_sathish_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "tvsdwadmin"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_blob_naveen')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_blob_naveen_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_stg_dim')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_stg_dim_properties_typeProperties_server')]",
+					"database": "[parameters('ls_stg_dim_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_stg_dim_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_stg_dim_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_stg_dimmarket')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_stg_dimmarket_properties_typeProperties_server')]",
+					"database": "[parameters('ls_stg_dimmarket_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_stg_dimmarket_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_stg_dimmarket_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsblob_kumar')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_tvsblob_kumar_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsblob_lalith')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_tvsblob_lalith_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsblob_sathish')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_tvsblob_sathish_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsdw_kumar')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_tvsdw_kumar_properties_typeProperties_server')]",
+					"database": "[parameters('ls_tvsdw_kumar_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_tvsdw_kumar_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_tvsdw_kumar_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsdw_lalith')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_tvsdw_lalith_properties_typeProperties_server')]",
+					"database": "[parameters('ls_tvsdw_lalith_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_tvsdw_lalith_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_tvsdw_lalith_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsdw_naveen')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_tvsdw_naveen_properties_typeProperties_server')]",
+					"database": "[parameters('ls_tvsdw_naveen_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_tvsdw_naveen_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_tvsdw_naveen_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_tvsdw_sathish')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('ls_tvsdw_sathish_properties_typeProperties_server')]",
+					"database": "[parameters('ls_tvsdw_sathish_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('ls_tvsdw_sathish_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ls_tvsdw_sathish_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_stored_procedure')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Stored procedure for dimmarket",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[DW].[usp_load_stg_dimmarket_merge]"
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_stg_dim",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Naveen"
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-12-16T10:46:29Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_stg_dim')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_blob_Lalith')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_tvsblob_lalith",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Lalith"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "*.csv",
+						"container": "tvsdparawfiles"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "String"
+					},
+					{
+						"name": "ShippingDate",
+						"type": "String"
+					},
+					{
+						"name": "DeliveryDate",
+						"type": "String"
+					},
+					{
+						"name": "DivisionID",
+						"type": "String"
+					},
+					{
+						"name": "DivisionName",
+						"type": "String"
+					},
+					{
+						"name": "DivisionAddress",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCity",
+						"type": "String"
+					},
+					{
+						"name": "DivisionState",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCountry",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPhone",
+						"type": "String"
+					},
+					{
+						"name": "DealerID",
+						"type": "String"
+					},
+					{
+						"name": "DealerName",
+						"type": "String"
+					},
+					{
+						"name": "DealerAddress",
+						"type": "String"
+					},
+					{
+						"name": "DealerPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DealerCity",
+						"type": "String"
+					},
+					{
+						"name": "DealerState",
+						"type": "String"
+					},
+					{
+						"name": "DealerCountry",
+						"type": "String"
+					},
+					{
+						"name": "DealerPhone",
+						"type": "String"
+					},
+					{
+						"name": "MarketID",
+						"type": "String"
+					},
+					{
+						"name": "Market",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategoryID",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategory",
+						"type": "String"
+					},
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "ShipperID",
+						"type": "String"
+					},
+					{
+						"name": "Shipper",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "Discount",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_tvsblob_lalith')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_blob_kumar')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_tvsblob_kumar",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Kumar"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "*.csv",
+						"container": "tvsdparawfiles"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "String"
+					},
+					{
+						"name": "ShippingDate",
+						"type": "String"
+					},
+					{
+						"name": "DeliveryDate",
+						"type": "String"
+					},
+					{
+						"name": "DivisionID",
+						"type": "String"
+					},
+					{
+						"name": "DivisionName",
+						"type": "String"
+					},
+					{
+						"name": "DivisionAddress",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCity",
+						"type": "String"
+					},
+					{
+						"name": "DivisionState",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCountry",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPhone",
+						"type": "String"
+					},
+					{
+						"name": "DealerID",
+						"type": "String"
+					},
+					{
+						"name": "DealerName",
+						"type": "String"
+					},
+					{
+						"name": "DealerAddress",
+						"type": "String"
+					},
+					{
+						"name": "DealerPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DealerCity",
+						"type": "String"
+					},
+					{
+						"name": "DealerState",
+						"type": "String"
+					},
+					{
+						"name": "DealerCountry",
+						"type": "String"
+					},
+					{
+						"name": "DealerPhone",
+						"type": "String"
+					},
+					{
+						"name": "MarketID",
+						"type": "String"
+					},
+					{
+						"name": "Market",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategoryID",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategory",
+						"type": "String"
+					},
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "ShipperID",
+						"type": "String"
+					},
+					{
+						"name": "Shipper",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "Discount",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_tvsblob_kumar')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_blob_naveen')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_blob_naveen",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Naveen"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "*.csv",
+						"container": "tvsdparawfiles"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "String"
+					},
+					{
+						"name": "ShippingDate",
+						"type": "String"
+					},
+					{
+						"name": "DeliveryDate",
+						"type": "String"
+					},
+					{
+						"name": "DivisionID",
+						"type": "String"
+					},
+					{
+						"name": "DivisionName",
+						"type": "String"
+					},
+					{
+						"name": "DivisionAddress",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCity",
+						"type": "String"
+					},
+					{
+						"name": "DivisionState",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCountry",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPhone",
+						"type": "String"
+					},
+					{
+						"name": "DealerID",
+						"type": "String"
+					},
+					{
+						"name": "DealerName",
+						"type": "String"
+					},
+					{
+						"name": "DealerAddress",
+						"type": "String"
+					},
+					{
+						"name": "DealerPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DealerCity",
+						"type": "String"
+					},
+					{
+						"name": "DealerState",
+						"type": "String"
+					},
+					{
+						"name": "DealerCountry",
+						"type": "String"
+					},
+					{
+						"name": "DealerPhone",
+						"type": "String"
+					},
+					{
+						"name": "MarketID",
+						"type": "String"
+					},
+					{
+						"name": "Market",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategoryID",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategory",
+						"type": "String"
+					},
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "ShipperID",
+						"type": "String"
+					},
+					{
+						"name": "Shipper",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "Discount",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_blob_naveen')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sink_dimmarket')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_stg_dimmarket",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Naveen"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PKMarketID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "MarketID",
+						"type": "varchar"
+					},
+					{
+						"name": "Market",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "DW",
+					"table": "DimMarket"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_stg_dimmarket')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sink_shipper')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_stg_dim",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Naveen"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PKShipperID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShipperID",
+						"type": "varchar"
+					},
+					{
+						"name": "Shipper",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "DW",
+					"table": "DimShipper"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_stg_dim')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_tvsblob_sathish",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sathish"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "*.csv",
+						"container": "tvsdparawfiles"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "String"
+					},
+					{
+						"name": "ShippingDate",
+						"type": "String"
+					},
+					{
+						"name": "DeliveryDate",
+						"type": "String"
+					},
+					{
+						"name": "DivisionID",
+						"type": "String"
+					},
+					{
+						"name": "DivisionName",
+						"type": "String"
+					},
+					{
+						"name": "DivisionAddress",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCity",
+						"type": "String"
+					},
+					{
+						"name": "DivisionState",
+						"type": "String"
+					},
+					{
+						"name": "DivisionCountry",
+						"type": "String"
+					},
+					{
+						"name": "DivisionPhone",
+						"type": "String"
+					},
+					{
+						"name": "DealerID",
+						"type": "String"
+					},
+					{
+						"name": "DealerName",
+						"type": "String"
+					},
+					{
+						"name": "DealerAddress",
+						"type": "String"
+					},
+					{
+						"name": "DealerPostalCode",
+						"type": "String"
+					},
+					{
+						"name": "DealerCity",
+						"type": "String"
+					},
+					{
+						"name": "DealerState",
+						"type": "String"
+					},
+					{
+						"name": "DealerCountry",
+						"type": "String"
+					},
+					{
+						"name": "DealerPhone",
+						"type": "String"
+					},
+					{
+						"name": "MarketID",
+						"type": "String"
+					},
+					{
+						"name": "Market",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategoryID",
+						"type": "String"
+					},
+					{
+						"name": "MarketCategory",
+						"type": "String"
+					},
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "Product",
+						"type": "String"
+					},
+					{
+						"name": "ShipperID",
+						"type": "String"
+					},
+					{
+						"name": "Shipper",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "Discount",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_tvsblob_sathish')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_source_stg')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_stg_dim",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Naveen"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "OrderDate",
+						"type": "date"
+					},
+					{
+						"name": "ShippingDate",
+						"type": "date"
+					},
+					{
+						"name": "DeliveryDate",
+						"type": "date"
+					},
+					{
+						"name": "DivisionID",
+						"type": "varchar"
+					},
+					{
+						"name": "DivisionName",
+						"type": "varchar"
+					},
+					{
+						"name": "DivisionAddress",
+						"type": "varchar"
+					},
+					{
+						"name": "DivisionPostalCode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DivisionCity",
+						"type": "varchar"
+					},
+					{
+						"name": "DivisionState",
+						"type": "varchar"
+					},
+					{
+						"name": "DivisionCountry",
+						"type": "varchar"
+					},
+					{
+						"name": "DivisionPhone",
+						"type": "varchar"
+					},
+					{
+						"name": "DealerID",
+						"type": "varchar"
+					},
+					{
+						"name": "DealerName",
+						"type": "varchar"
+					},
+					{
+						"name": "DealerAddress",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DealerPostalCode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DealerCity",
+						"type": "varchar"
+					},
+					{
+						"name": "DealerState",
+						"type": "varchar"
+					},
+					{
+						"name": "DealerCountry",
+						"type": "varchar"
+					},
+					{
+						"name": "DealerPhone",
+						"type": "varchar"
+					},
+					{
+						"name": "MarketID",
+						"type": "varchar"
+					},
+					{
+						"name": "Market",
+						"type": "varchar"
+					},
+					{
+						"name": "MarketCategoryID",
+						"type": "varchar"
+					},
+					{
+						"name": "MarketCategory",
+						"type": "varchar"
+					},
+					{
+						"name": "ProductID",
+						"type": "varchar"
+					},
+					{
+						"name": "Product",
+						"type": "varchar"
+					},
+					{
+						"name": "ShipperID",
+						"type": "varchar"
+					},
+					{
+						"name": "Shipper",
+						"type": "varchar"
+					},
+					{
+						"name": "Quantity",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "UnitPrice",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Discount",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CreatedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "CreatedBy",
+						"type": "varchar"
+					},
+					{
+						"name": "ModifiedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ModifiedBy",
+						"type": "varchar"
+					},
+					{
+						"name": "BatchID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FileName",
+						"type": "varchar"
+					},
+					{
+						"name": "FileLocation",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stg",
+					"table": "StagingTVS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_stg_dim')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_source_stgdimmarket')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_stg_dimmarket",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Naveen"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "PKMarketID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "MarketID",
+						"type": "varchar"
+					},
+					{
+						"name": "Market",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "stg",
+					"table": "StagingTVS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_stg_dimmarket')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_tvsdw')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sathish"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "stg",
+					"table": "StagingTVS_SG"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_tvsdw_sathish')]"
+			]
+		}
+	]
+}
