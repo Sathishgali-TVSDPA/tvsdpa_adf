@@ -1,0 +1,35 @@
+{
+	"name": "ds_sink_dimdivision",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_naveen",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKDivisionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DivisionID",
+				"type": "varchar"
+			},
+			{
+				"name": "DivisionName",
+				"type": "varchar"
+			},
+			{
+				"name": "FKGeographyID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimDivision"
+		}
+	}
+}
