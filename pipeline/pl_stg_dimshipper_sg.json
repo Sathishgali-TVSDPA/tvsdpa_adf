@@ -51,7 +51,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_tvsdw_sg",
+						"referenceName": "ds_sink_shipper_sg",
 						"type": "DatasetReference"
 					}
 				]

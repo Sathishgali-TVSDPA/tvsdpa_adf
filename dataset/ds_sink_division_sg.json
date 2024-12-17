@@ -1,0 +1,38 @@
+{
+	"name": "ds_sink_division_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Sathish"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKDivisionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DivisionID",
+				"type": "varchar"
+			},
+			{
+				"name": "DivisionName",
+				"type": "varchar"
+			},
+			{
+				"name": "FKGeographyID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimDivision_SG"
+		}
+	}
+}

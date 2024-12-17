@@ -1,0 +1,33 @@
+{
+	"name": "ds_sink_shipper_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Sathish"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKShipperID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ShipperID",
+				"type": "varchar"
+			},
+			{
+				"name": "Shipper",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimShipper_SG"
+		}
+	}
+}
