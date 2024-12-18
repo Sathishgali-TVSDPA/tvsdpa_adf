@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_dimshipper_KV]",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_dimshipper_KV]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
