@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[usp_load_stg_dimmarket_merge_KV]"
+					"storedProcedureName": "[DW].[usp_load_stg_dimmarket_merge_KV]"
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_tvsdw_kumar",
