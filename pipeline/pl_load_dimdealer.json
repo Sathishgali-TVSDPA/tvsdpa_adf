@@ -7,9 +7,9 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "vStartTime",
+						"activity": "Set variable1",
 						"dependencyConditions": [
-							"Succeeded"
+							"Skipped"
 						]
 					}
 				],
@@ -62,20 +62,6 @@
 						"type": "DatasetReference"
 					}
 				]
-			},
-			{
-				"name": "vStartTime",
-				"type": "SetVariable",
-				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "vStartTime",
-					"value": ""
-				}
 			},
 			{
 				"name": "Stored procedure for dimdealer",
@@ -247,6 +233,20 @@
 				"linkedServiceName": {
 					"referenceName": "ls_tvsdw_naveen",
 					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vStartTime",
+					"value": "add dynamic content"
 				}
 			}
 		],
