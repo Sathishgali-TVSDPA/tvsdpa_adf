@@ -82,7 +82,7 @@
 				}
 			},
 			{
-				"name": "Stored procedure1",
+				"name": "Stored procedure on sucess",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -172,7 +172,7 @@
 				}
 			},
 			{
-				"name": "Stored procedure for Failure",
+				"name": "Stored procedure onFail",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
