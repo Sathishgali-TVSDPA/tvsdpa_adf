@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_dimshipper_KV]",
+						"sqlReaderQuery": "SELECT DISTINCT ShipperID, Shippername\nFROM [stg].[StagingTVS_Kumar];",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -240,14 +240,14 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.error",
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.error.code",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
 						"ErrorDesc": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.errormessage",
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.error.message",
 								"type": "Expression"
 							},
 							"type": "String"
