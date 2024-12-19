@@ -198,14 +198,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy data for dimdealer').output",
+								"value": "@activity('Copy data for dimdealer').output.dataread",
 								"type": "Expression"
 							},
 							"type": "Int32"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy data for dimdealer').output",
+								"value": "@activity('Copy data for dimdealer').output.datawritten",
 								"type": "Expression"
 							},
 							"type": "Int32"
