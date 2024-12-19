@@ -247,7 +247,7 @@
 						},
 						"ErrorDesc": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.error.message",
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.errors",
 								"type": "Expression"
 							},
 							"type": "String"
