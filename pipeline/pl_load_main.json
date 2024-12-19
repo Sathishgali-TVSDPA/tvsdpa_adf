@@ -21,14 +21,7 @@
 			{
 				"name": "dimshipper",
 				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "dimmarket",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"secureInput": false
 				},
@@ -44,14 +37,7 @@
 			{
 				"name": "dimgeography",
 				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "dimshipper",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"secureInput": false
 				},
@@ -92,7 +78,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "dimdealer",
+						"activity": "dimgeography",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -115,7 +101,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "dimdivision",
+						"activity": "dimmarket",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -161,6 +147,24 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
+						"activity": "dimdivision",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "dimdealer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "dimshipper",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
 						"activity": "dimproduct",
 						"dependencyConditions": [
 							"Succeeded"
@@ -180,6 +184,11 @@
 				}
 			}
 		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Sathish"
 		},
