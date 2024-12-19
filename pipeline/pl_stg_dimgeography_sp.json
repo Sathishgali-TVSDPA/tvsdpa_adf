@@ -182,14 +182,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.dataread",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.dateread\n",
 								"type": "Expression"
 							},
 							"type": "Int64"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.datawritten",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.datawritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
@@ -286,14 +286,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.dataread",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.dataread",
 								"type": "Expression"
 							},
 							"type": "Int64"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.datawritten",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.datawritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
@@ -314,14 +314,14 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').error.errorCode",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').error.errorCode",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
 						"ErrorDesc": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').error.message",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').error.message",
 								"type": "Expression"
 							},
 							"type": "String"
