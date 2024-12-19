@@ -1,0 +1,347 @@
+{
+	"name": "pl_stg_dimgeography_sp",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_Stg_Dimgeography_SP",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set vStartTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_dimgeography_KV]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"ADDRESS"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Address",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ADDRESS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PostalCode",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "PostalCode",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "City",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "City",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "State",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "State",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PhoneNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "PhoneNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_tvsdw_kumar",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_dimgeography",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "sp_pipelinelog_success",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy_Stg_Dimgeography_SP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLog_KV]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.dataread",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.datawritten",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@formatDateTime(variables('vStartTime'))",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"ErrorID": {
+							"value": null,
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_kumar",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set vStartTime",
+				"description": "Pipeline StartTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vStartTime",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "sp_pipelinelog_failure",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy_Stg_Dimgeography_SP",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLog_KV]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.dataread",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy_Stg_DimShipper_SP').output.datawritten",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@formatDateTime(variables('vStartTime'))",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"ErrorID": {
+							"value": {
+								"value": "@activity('Copy_Stg_DimShipper_SP').error.errorCode",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": {
+								"value": "@activity('Copy_Stg_DimShipper_SP').error.message",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_kumar",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Kumar/Upsert"
+		},
+		"annotations": []
+	}
+}
