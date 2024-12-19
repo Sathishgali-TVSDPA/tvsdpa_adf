@@ -64,7 +64,7 @@
 				]
 			},
 			{
-				"name": "Stored procedure for dimdealer",
+				"name": "Stored procedure on sucess",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -154,7 +154,7 @@
 				}
 			},
 			{
-				"name": "Stored procedure for dimdealer failure",
+				"name": "Stored procedure on fail",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
