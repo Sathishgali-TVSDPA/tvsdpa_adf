@@ -240,14 +240,14 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').error.message",
+								"value": "@activity('Copy_Stg_DimShipper_SP').error.code",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
 						"ErrorDesc": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').output.errors",
+								"value": "@activity('Copy_Stg_DimShipper_SP').error.message",
 								"type": "Expression"
 							},
 							"type": "String"
