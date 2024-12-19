@@ -1,0 +1,33 @@
+{
+	"name": "ds_dimmarketcategory",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_kumar",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kumar"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketID",
+				"type": "varchar"
+			},
+			{
+				"name": "Market",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarketCategory_KV"
+		}
+	}
+}
