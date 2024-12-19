@@ -111,14 +111,14 @@
 								"value": "@activity('Copy data for dimdealer').output",
 								"type": "Expression"
 							},
-							"type": "Int64"
+							"type": "Int32"
 						},
 						"RowsWritten": {
 							"value": {
 								"value": "@activity('Copy data for dimdealer').output",
 								"type": "Expression"
 							},
-							"type": "Int64"
+							"type": "Int32"
 						},
 						"StartTime": {
 							"value": {
@@ -195,14 +195,14 @@
 								"value": "@activity('Copy data for dimdealer').output",
 								"type": "Expression"
 							},
-							"type": "Int64"
+							"type": "Int32"
 						},
 						"RowsWritten": {
 							"value": {
 								"value": "@activity('Copy data for dimdealer').output",
 								"type": "Expression"
 							},
-							"type": "Int64"
+							"type": "Int32"
 						},
 						"StartTime": {
 							"value": {
@@ -220,7 +220,7 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy data for dimdealer').error code",
+								"value": "@activity('Copy data for dimdealer').error",
 								"type": "Expression"
 							},
 							"type": "String"
