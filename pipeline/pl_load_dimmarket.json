@@ -138,6 +138,10 @@
 							"type": "Int16"
 						},
 						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
 							"type": "Datetime"
 						},
 						"EndTime": {
