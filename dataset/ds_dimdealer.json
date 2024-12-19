@@ -12,16 +12,16 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "PKDivisionID",
+				"name": "PKDealerID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "DivisionID",
+				"name": "DealerID",
 				"type": "varchar"
 			},
 			{
-				"name": "DivisionName",
+				"name": "DealerName",
 				"type": "varchar"
 			},
 			{
