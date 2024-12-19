@@ -83,7 +83,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[DW].[InsertPipelineLog_KV]",
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLog_KV]",
 					"storedProcedureParameters": {
 						"PipelineID": {
 							"value": {
@@ -122,7 +122,7 @@
 						},
 						"StartTime": {
 							"value": {
-								"value": "@formatDateTime(variables('vStartTime'),'yyyy-MM-ddTHH:mm:ss')",
+								"value": "@formatDateTime(variables('vStartTime'))",
 								"type": "Expression"
 							},
 							"type": "Datetime"
@@ -187,7 +187,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[DW].[InsertPipelineLog_KV]",
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLog_KV]",
 					"storedProcedureParameters": {
 						"PipelineID": {
 							"value": {
@@ -226,7 +226,7 @@
 						},
 						"StartTime": {
 							"value": {
-								"value": "@formatDateTime(variables('vStartTime'),'yyyy-MM-ddTHH:mm:ss')",
+								"value": "@formatDateTime(variables('vStartTime'))",
 								"type": "Expression"
 							},
 							"type": "Datetime"
