@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy data for dimivision",
+				"description": "",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -24,7 +25,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT tvs.DivisionName,tvs.DivisionID,geo.PKGeographyID as FKGeographyID\nFROM [stg].[StagingTVS] as tvs\nINNER JOIN \nDW.DimGeography as geo on tvs.DivisionPostalCode=geo.PostalCode\n",
+						"sqlReaderQuery": "SELECT DISTINCT tvs.DivisionName,tvs.DivisionID,geo.PKGeographyID as FKGeographyID\nFROM [stg].[StagingTVS] as tvs\nINNER JOIN \nDW.DimGeography as geo on tvs.DivisionPostalCode=geo.PostalCode",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -125,14 +126,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy data for dimivision').outputrowsread",
+								"value": "@activity('Copy data for dimivision').output.dataread",
 								"type": "Expression"
 							},
 							"type": "Int64"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy data for dimivision').outputrowswritten",
+								"value": "@activity('Copy data for dimivision').output.datawritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
@@ -171,7 +172,7 @@
 				}
 			},
 			{
-				"name": "Stored procedure2",
+				"name": "Stored procedure for Failure",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -188,7 +189,83 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_N]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy data for dimivision').output.dataread",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy data for dimivision').output.datawritten",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int16"
+						},
+						"ErrorID": {
+							"value": {
+								"value": "@activity('Copy data for dimivision').error",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": {
+								"value": "@activity('Copy data for dimivision').error.message",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"variables": {
