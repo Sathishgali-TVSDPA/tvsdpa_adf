@@ -1,0 +1,38 @@
+{
+	"name": "ds_dimdealer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_kumar",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Kumar"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKDivisionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DivisionID",
+				"type": "varchar"
+			},
+			{
+				"name": "DivisionName",
+				"type": "varchar"
+			},
+			{
+				"name": "FKGeographyID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimDealer_KV"
+		}
+	}
+}
