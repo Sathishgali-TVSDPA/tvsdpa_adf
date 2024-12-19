@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[InsertPipelineLog]",
+					"storedProcedureName": "[DW].[InsertPipelineLog]",
 					"storedProcedureParameters": {
 						"PipelineID": {
 							"value": {
@@ -32,7 +32,7 @@
 							"type": "String"
 						},
 						"RowsRead": {
-							"value": null
+							"value": ""
 						},
 						"RowsWritten": {
 							"value": null
@@ -42,14 +42,14 @@
 								"value": "@utcNow()",
 								"type": "Expression"
 							},
-							"type": "String"
+							"type": "Datetime"
 						},
 						"EndTime": {
 							"value": {
 								"value": "@utcNow()",
 								"type": "Expression"
 							},
-							"type": "String"
+							"type": "Datetime"
 						},
 						"ErrorID": {
 							"value": null
