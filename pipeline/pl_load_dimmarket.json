@@ -215,14 +215,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy data1').outputrowsread",
+								"value": "@activity('Copy data for dimmarket').rowsread",
 								"type": "Expression"
 							},
 							"type": "Int16"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy data1').outputrowswritten",
+								"value": "@activity('Copy data for dimmarket').rowswritten",
 								"type": "Expression"
 							},
 							"type": "Int16"
@@ -247,14 +247,14 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy data1').output.errorcode",
+								"value": "@activity('Copy data for dimmarket').error.errorcode",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
 						"ErrorDesc": {
 							"value": {
-								"value": "@activity('Copy data1').output.error.message",
+								"value": "@activity('Copy data for dimmarket').errormessage",
 								"type": "Expression"
 							},
 							"type": "String"
