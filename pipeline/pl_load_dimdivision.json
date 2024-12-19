@@ -248,7 +248,7 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy data for dimivision').error",
+								"value": "@activity('Copy data for dimivision').error.errorcode",
 								"type": "Expression"
 							},
 							"type": "String"
