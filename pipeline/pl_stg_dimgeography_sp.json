@@ -182,14 +182,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy_Stg_Dimgeography_SP').output.dataread\n",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.rowsread\n",
 								"type": "Expression"
 							},
 							"type": "Int64"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy_Stg_Dimgeography_SP').output.datawritten",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.rowswritten",
 								"type": "Expression"
 							},
 							"type": "Int64"
