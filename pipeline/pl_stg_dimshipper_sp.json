@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT ShipperID, Shippername\nFROM [stg].[StagingTVS_Kumar];",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_dimshipper_KV]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
