@@ -189,7 +189,7 @@
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy_Stg_Dimgeography_SP').output.rowswritten",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.rowsCopied",
 								"type": "Expression"
 							},
 							"type": "Int64"
