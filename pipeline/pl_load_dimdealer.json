@@ -226,7 +226,7 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy data for dimdealer').error",
+								"value": "@activity('Copy data for dimdealer').error.errorcode",
 								"type": "Expression"
 							},
 							"type": "String"
