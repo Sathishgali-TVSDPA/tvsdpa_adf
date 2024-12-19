@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_dimshipper_KV]",
+						"sqlReaderQuery": "SELECT DISTINCT ShipperI, Shipper\nFROM [stg].[StagingTVS_Lalith]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
