@@ -240,7 +240,7 @@
 						},
 						"ErrorID": {
 							"value": {
-								"value": "@activity('Copy_Stg_DimShipper_SP').error.code",
+								"value": "@activity('Copy_Stg_DimShipper_SP').errorcode",
 								"type": "Expression"
 							},
 							"type": "String"
