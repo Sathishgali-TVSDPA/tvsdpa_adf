@@ -1,0 +1,33 @@
+{
+	"name": "ds_sink_dimmarket_dlv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_lalith",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lalith"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketID",
+				"type": "varchar"
+			},
+			{
+				"name": "Market",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarket_DLV"
+		}
+	}
+}
