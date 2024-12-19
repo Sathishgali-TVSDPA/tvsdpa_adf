@@ -7,9 +7,9 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Set vStsrtTime",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
@@ -83,7 +83,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[DW].[usp_load_stg_dimdealer_merge]",
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_N]",
 					"storedProcedureParameters": {
 						"PipelineID": {
 							"value": {
@@ -122,18 +122,23 @@
 						},
 						"StartTime": {
 							"value": {
-								"value": "@utcNow()",
+								"value": "@variables('vStartTime')",
 								"type": "Expression"
 							},
 							"type": "Datetime"
 						},
 						"EndTime": {
-							"value": null,
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
 							"type": "Datetime"
 						},
-						"Duration": {
-							"value": null,
-							"type": "Int32"
+						"ErrorID": {
+							"value": null
+						},
+						"ErrorDesc": {
+							"value": null
 						}
 					}
 				},
@@ -162,7 +167,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[DW].[usp_load_stg_dimdealer_merge]",
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_N]",
 					"storedProcedureParameters": {
 						"PipelineID": {
 							"value": {
@@ -201,18 +206,17 @@
 						},
 						"StartTime": {
 							"value": {
-								"value": "@utcNow()",
+								"value": "@variables('vStartTime')",
 								"type": "Expression"
 							},
 							"type": "Datetime"
 						},
 						"EndTime": {
-							"value": null,
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
 							"type": "Datetime"
-						},
-						"Duration": {
-							"value": null,
-							"type": "Int16"
 						},
 						"ErrorID": {
 							"value": {
@@ -236,7 +240,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "Set vStsrtTime",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"policy": {
@@ -246,7 +250,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "vStartTime",
-					"value": "add dynamic content"
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
 				}
 			}
 		],
