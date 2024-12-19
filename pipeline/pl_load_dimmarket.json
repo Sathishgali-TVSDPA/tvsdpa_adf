@@ -125,23 +125,19 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy data1').output.dataread",
+								"value": "@activity('Copy data for dimmarket').output.dataread",
 								"type": "Expression"
 							},
 							"type": "Int16"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy data1').output.datawritten",
+								"value": "@activity('Copy data for dimmarket').output.datawritten\n",
 								"type": "Expression"
 							},
 							"type": "Int16"
 						},
 						"StartTime": {
-							"value": {
-								"value": "@variables('vStartTime')",
-								"type": "Expression"
-							},
 							"type": "Datetime"
 						},
 						"EndTime": {
