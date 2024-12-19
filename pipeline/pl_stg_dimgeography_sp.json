@@ -182,7 +182,7 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy_Stg_Dimgeography_SP').output.dateread\n",
+								"value": "@activity('Copy_Stg_Dimgeography_SP').output.dataread\n",
 								"type": "Expression"
 							},
 							"type": "Int64"
