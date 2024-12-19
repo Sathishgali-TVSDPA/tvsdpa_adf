@@ -12,17 +12,22 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "PKMarketID",
+				"name": "PKProductID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "MarketID",
+				"name": "ProductID",
 				"type": "varchar"
 			},
 			{
-				"name": "Market",
+				"name": "Product",
 				"type": "varchar"
+			},
+			{
+				"name": "FKMarketCategoryID",
+				"type": "int",
+				"precision": 10
 			}
 		],
 		"typeProperties": {
