@@ -55,6 +55,77 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copydata_stg_DimMarket",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[DW].[InsertPipelineLog]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							}
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							}
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copydata_stg_DimMarket').output.dataRead",
+								"type": "Expression"
+							}
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copydata_stg_DimMarket').output.dataWritten",
+								"type": "Expression"
+							}
+						},
+						"StartTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							}
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							}
+						},
+						"ErrorID": {
+							"value": null
+						},
+						"ErrorDesc": {
+							"value": null
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_Sundar",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
