@@ -5,9 +5,14 @@
 			{
 				"name": "Copy_Stg_DimShipper_SP",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set vStartTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -61,8 +66,6 @@
 			{
 				"name": "sp_pipelinelog",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Copy_Stg_DimShipper_SP",
@@ -118,7 +121,10 @@
 							"type": "Int64"
 						},
 						"StartTime": {
-							"value": "",
+							"value": {
+								"value": "@formatDateTime(variables('vStartTime'),'yyyy-MM-ddTHH:mm:ss')",
+								"type": "Expression"
+							},
 							"type": "Datetime"
 						}
 					}
