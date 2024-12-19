@@ -108,14 +108,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('Copy data for dimdealer').output",
+								"value": "@activity('Copy data for dimdealer').output.dataread",
 								"type": "Expression"
 							},
 							"type": "Int32"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('Copy data for dimdealer').output",
+								"value": "@activity('Copy data for dimdealer').output.datawritten",
 								"type": "Expression"
 							},
 							"type": "Int32"
@@ -135,10 +135,16 @@
 							"type": "Datetime"
 						},
 						"ErrorID": {
-							"value": null
+							"value": null,
+							"type": "String"
 						},
 						"ErrorDesc": {
-							"value": null
+							"value": null,
+							"type": "String"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int16"
 						}
 					}
 				},
@@ -231,6 +237,10 @@
 								"type": "Expression"
 							},
 							"type": "String"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int16"
 						}
 					}
 				},
