@@ -1,0 +1,33 @@
+{
+	"name": "ds_sink_dimshipper_dlv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_lalith",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lalith"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKShipperID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ShipperID",
+				"type": "varchar"
+			},
+			{
+				"name": "Shipper",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimShipper_DLV"
+		}
+	}
+}

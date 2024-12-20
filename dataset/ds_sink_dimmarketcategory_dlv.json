@@ -1,0 +1,38 @@
+{
+	"name": "ds_sink_dimmarketcategory_dlv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_lalith",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lalith"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketCategoryID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketCategoryID",
+				"type": "varchar"
+			},
+			{
+				"name": "MarketCategory",
+				"type": "varchar"
+			},
+			{
+				"name": "FKMarketID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarketCategory_DLV"
+		}
+	}
+}

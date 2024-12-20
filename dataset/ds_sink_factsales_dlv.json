@@ -1,0 +1,70 @@
+{
+	"name": "ds_sink_factsales_dlv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_lalith",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Lalith"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "FKOrderDateID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FKShippingDateID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FKDeliveryDateID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FKDivisionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FKDealerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FKProductID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FKShipperID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Quantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UnitPrice",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Discount",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "FactSales_DLV"
+		}
+	}
+}
