@@ -1,0 +1,38 @@
+{
+	"name": "ds_sink_dimproduct",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_naveen",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Naveen"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKProductID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProductID",
+				"type": "varchar"
+			},
+			{
+				"name": "Product",
+				"type": "varchar"
+			},
+			{
+				"name": "FKMarketCategoryID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimProduct"
+		}
+	}
+}

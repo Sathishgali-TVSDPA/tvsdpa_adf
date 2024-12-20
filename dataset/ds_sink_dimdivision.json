@@ -1,8 +1,8 @@
 {
-	"name": "ds_sink_dimmarket",
+	"name": "ds_sink_dimdivision",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_stg_dimmarket",
+			"referenceName": "ls_tvsdw_naveen",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -12,23 +12,27 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "PKMarketID",
+				"name": "PKDivisionID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "MarketID",
+				"name": "DivisionID",
 				"type": "varchar"
 			},
 			{
-				"name": "Market",
+				"name": "DivisionName",
 				"type": "varchar"
+			},
+			{
+				"name": "FKGeographyID",
+				"type": "int",
+				"precision": 10
 			}
 		],
 		"typeProperties": {
 			"schema": "DW",
-			"table": "DimMarket"
+			"table": "DimDivision"
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
