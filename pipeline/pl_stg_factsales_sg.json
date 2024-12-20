@@ -1,0 +1,273 @@
+{
+	"name": "pl_stg_factsales_sg",
+	"properties": {
+		"activities": [
+			{
+				"name": "factsales",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set vStartTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_factsales_sg]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"Quantity"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_source_stg",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sink_factsales_sg",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "sp_log_success",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "factsales",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_SG]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('factsales').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('factsales').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"ErrorID": {
+							"value": null,
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set vStartTime",
+				"description": "Pipeline Starttime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vStartTime",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "sp_log_failure",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "factsales",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_SG]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('factsales').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('factsales').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"ErrorID": {
+							"value": {
+								"value": "@activity('factsales').Error.Errorcode",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": {
+								"value": "@activity('factsales').Error.message",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Sathish/Upsert"
+		},
+		"annotations": []
+	}
+}

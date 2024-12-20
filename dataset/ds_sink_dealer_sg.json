@@ -1,0 +1,38 @@
+{
+	"name": "ds_sink_dealer_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Sathish"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKDealerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DealerID",
+				"type": "varchar"
+			},
+			{
+				"name": "DealerName",
+				"type": "varchar"
+			},
+			{
+				"name": "FKGeographyID",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimDealer_SG"
+		}
+	}
+}

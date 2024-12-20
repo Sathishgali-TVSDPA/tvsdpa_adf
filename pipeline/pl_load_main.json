@@ -1,0 +1,197 @@
+{
+	"name": "pl_load_main",
+	"properties": {
+		"activities": [
+			{
+				"name": "dimmarket",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimmarket_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "dimshipper",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimshipper_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "dimgeography",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimgeography_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "dimdealer",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "dimgeography",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimdealer_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "dimdivision",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "dimgeography",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimdivision_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "dimmarketcategory",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "dimmarket",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimmarketcategory_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "dimproduct",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "dimmarketcategory",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_dimproduct_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "factsales",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "dimdivision",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "dimdealer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "dimshipper",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "dimproduct",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_stg_factsales_sg",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Sathish"
+		},
+		"annotations": []
+	}
+}

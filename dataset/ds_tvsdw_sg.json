@@ -1,5 +1,5 @@
 {
-	"name": "ds_tvsdw",
+	"name": "ds_tvsdw_sg",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_tvsdw_sathish",

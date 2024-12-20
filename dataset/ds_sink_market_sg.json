@@ -1,0 +1,33 @@
+{
+	"name": "ds_sink_market_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Sathish"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PKMarketID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MarketID",
+				"type": "varchar"
+			},
+			{
+				"name": "Market",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "DW",
+			"table": "DimMarket_SG"
+		}
+	}
+}
