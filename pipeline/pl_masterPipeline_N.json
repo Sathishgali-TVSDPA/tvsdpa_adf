@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Execute Pipeline for Dimdealer",
+				"name": "Dimdealer",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -26,7 +26,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for DimDivision",
+				"name": "DimDivision",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -49,29 +49,29 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for FactSales",
+				"name": "FactSales",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline for Dimdealer",
+						"activity": "Dimdealer",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					},
 					{
-						"activity": "Execute Pipeline for DimDivision",
+						"activity": "DimDivision",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					},
 					{
-						"activity": "Execute Pipeline for DimShipper",
+						"activity": "DimShipper",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					},
 					{
-						"activity": "Execute Pipeline for DimProduct",
+						"activity": "DimProduct",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -90,7 +90,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for DimShipper",
+				"name": "DimShipper",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"policy": {
@@ -122,7 +122,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for DimMarketCategory",
+				"name": "DimMarketCategory",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
@@ -145,11 +145,11 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for DimProduct",
+				"name": "DimProduct",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline for DimMarketCategory",
+						"activity": "DimMarketCategory",
 						"dependencyConditions": [
 							"Succeeded"
 						]
