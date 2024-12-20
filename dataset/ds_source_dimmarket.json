@@ -5,6 +5,9 @@
 			"referenceName": "ls_tvsdw_naveen",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Naveen"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
