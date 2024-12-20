@@ -108,14 +108,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('stg-dimmarketcategory').output.rowscopied",
+								"value": "@activity('stg-dimmarket').output.rowscopied",
 								"type": "Expression"
 							},
 							"type": "Int16"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('stg-dimmarketcategory').output.rowscopied",
+								"value": "@activity('stg-dimmarket').output.rowscopied",
 								"type": "Expression"
 							},
 							"type": "Int16"
