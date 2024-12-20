@@ -7,7 +7,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline for dim geography",
+						"activity": "dim geography",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -30,7 +30,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline for dim geography",
+						"activity": "dim geography",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -106,7 +106,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for DimMarket",
+				"name": "DimMarket",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"policy": {
@@ -126,7 +126,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline for DimMarket",
+						"activity": "DimMarket",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -168,7 +168,7 @@
 				}
 			},
 			{
-				"name": "Execute Pipeline for dim geography",
+				"name": "dim geography",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"policy": {
