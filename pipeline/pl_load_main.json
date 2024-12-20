@@ -12,7 +12,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimmarket_sg",
+						"referenceName": "pl_stg_dimmarket",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -28,7 +28,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimshipper_sg",
+						"referenceName": "pl_stg_dimshipper_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -44,7 +44,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimgeography_sg",
+						"referenceName": "pl_stg_dimgeography_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -67,7 +67,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimdealer_sg",
+						"referenceName": "pl_stg_dimdealer_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -90,7 +90,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimdivision_sg",
+						"referenceName": "pl_stg_dimdivision_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -113,7 +113,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimmarketcategory_sg",
+						"referenceName": "pl_stg_dimmarketcategory_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -136,7 +136,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_dimproduct_sg",
+						"referenceName": "pl_stg_dimproduct_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
@@ -177,7 +177,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_sp_factsales_sg",
+						"referenceName": "pl_stg_factsales_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
