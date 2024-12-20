@@ -12,7 +12,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "pl_stg_dimmarket",
+						"referenceName": "pl_stg_dimmarket_sg",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
