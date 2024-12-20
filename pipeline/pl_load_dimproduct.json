@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT tvs.ProductID,tvs.[Product],dmc.PKMarketCategoryID as FKMarketCategoryID\nFROM [stg].[StagingTVS] as tvs\nINNER JOIN\nDW.DimMarketCategory as dmc on tvs.MarketCategoryID=dmc.MarketCategoryID\n",
+						"sqlReaderQuery": "SELECT DISTINCT tvs.ProductID,tvs.[Product],dmc.PKMarketCategoryID as FKMarketCategoryID\nFROM [stg].[StagingTVS] as tvs\nINNER JOIN\nDW.DimMarketCategory as dmc on tvs.MarketCategoryID=dmc.MarketCategoryID",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
