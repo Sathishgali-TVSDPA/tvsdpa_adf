@@ -5,7 +5,14 @@
 			{
 				"name": "Copy data for dimgeography",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set vStartTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -17,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT tvs.DealerAddress as [Address],tvs.DealerPostalCode as PostalCode,\ntvs.DealerCity as City,tvs.DealerState as [State],tvs.DealerCountry as Country,tvs.DealerPhone as Phone\nFROM [stg].[StagingTVS] as tvs\nUNION ALL\nSELECT DISTINCT tvs.DivisionAddress as [Address],tvs.DivisionPostalCode as PostalCode,\ntvs.DivisionCity as City,tvs.DivisionState as state, \ntvs.DivisionCountry as Country,tvs.DivisionPhone as Phone\nFROM [stg].[StagingTVS] as tvs",
+						"sqlReaderQuery": "    SELECT DISTINCT \n    STG.DealerAddress AS [ADDRESS],\n    STG.DealerPostalCode AS PostalCode,\n    STG.DealerCity AS City,\n    STG.DealerState AS [State],\n    STG.DealerCountry AS Country,\n    STG.DealerPhone AS [PhoneNumber]\nFROM [stg].[StagingTVS] AS STG\nUNION ALL\nSELECT DISTINCT \n    STG.DivisionAddress AS [ADDRESS],  -- Change [Address] to [ADDRESS]\n    STG.DivisionPostalCode AS PostalCode,\n    STG.DivisionCity AS City,\n    STG.DivisionState AS [State],\n    STG.DivisionCountry AS Country,\n    STG.DivisionPhone AS [PhoneNumber]\nFROM [stg].[StagingTVS] AS STG",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -55,8 +62,216 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Set vStartTime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vStartTime",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Stored procedure on sucess",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy data for dimgeography",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_N]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy data for dimgeography').output.dataread",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy data for dimgeography').output.datawritten",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int16"
+						},
+						"ErrorID": {
+							"value": null,
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Stored procedure on fail",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy data for dimgeography",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_N]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy data for dimgeography').rowsread",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy data for dimgeography').rowswritten",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int16"
+						},
+						"ErrorID": {
+							"value": {
+								"value": "@activity('Copy data for dimgeography').error.errorcode",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": {
+								"value": "@activity('Copy data for dimgeography').errormessage",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Naveen/upsert"
 		},
