@@ -5,7 +5,14 @@
 			{
 				"name": "stg-dimmarketcategory",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set vStartTime",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -55,8 +62,209 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "sp_log_success",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "stg-dimmarketcategory",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_SG]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('stg-dimmarketcategory').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('stg-dimmarketcategory').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"ErrorID": {
+							"value": null,
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "sp_log_failure",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "stg-dimmarketcategory",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[InsertPipelineLogs_SG]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"pipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('stg-dimmarketcategory').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('stg-dimmarketcategory').output.rowscopied",
+								"type": "Expression"
+							},
+							"type": "Int16"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"ErrorID": {
+							"value": {
+								"value": "@activity('stg-dimmarketcategory').Error.Errorcode",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": {
+								"value": "@activity('stg-dimmarketcategory').Error.message",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set vStartTime",
+				"description": "Pipeline Starttime",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vStartTime",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Sathish/Upsert"
 		},
