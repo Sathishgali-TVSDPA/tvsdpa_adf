@@ -106,13 +106,15 @@
 							"value": {
 								"value": "@utcNow()",
 								"type": "Expression"
-							}
+							},
+							"type": "Datetime"
 						},
 						"EndTime": {
 							"value": {
 								"value": "@utcNow()",
 								"type": "Expression"
-							}
+							},
+							"type": "Datetime"
 						},
 						"ErrorID": {
 							"value": null
@@ -126,6 +128,16 @@
 					"referenceName": "ls_tvsdw_Sundar",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
 			}
 		],
 		"folder": {
