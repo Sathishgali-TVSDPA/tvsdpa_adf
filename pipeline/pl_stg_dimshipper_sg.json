@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT ShipperID, ShipperName\nFROM [stg].[StagingTVS_SG",
+						"sqlReaderStoredProcedureName": "[dbo].[usp_load_stg_dimshipper_sg]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -108,14 +108,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('stg-dimshipper').output.dataread",
+								"value": "@activity('stg-dimshipper').output.rowscopied",
 								"type": "Expression"
 							},
 							"type": "Int16"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('stg-dimshipper').output.datawritten",
+								"value": "@activity('stg-dimshipper').output.rowscopied",
 								"type": "Expression"
 							},
 							"type": "Int16"
@@ -212,14 +212,14 @@
 						},
 						"RowsRead": {
 							"value": {
-								"value": "@activity('stg-dimshipper').output.dataread",
+								"value": "@activity('stg-dimshipper').output.rowscopied",
 								"type": "Expression"
 							},
 							"type": "Int16"
 						},
 						"RowsWritten": {
 							"value": {
-								"value": "@activity('stg-dimshipper').output.datawritten",
+								"value": "@activity('stg-dimshipper').output.rowscopied",
 								"type": "Expression"
 							},
 							"type": "Int16"
