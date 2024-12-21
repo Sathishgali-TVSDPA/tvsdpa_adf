@@ -1,0 +1,47 @@
+{
+	"name": "ds_source_dlv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsblob_lalith",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pFilePath": {
+				"type": "string"
+			},
+			"pFileDirectory": {
+				"type": "string"
+			},
+			"pFileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Lalith"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().pFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().pFileDirectory",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().pFilePath",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
