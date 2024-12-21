@@ -175,14 +175,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().ptargetschema",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().ptargettable",
-				"type": "Expression"
-			}
+			"schema": "DW",
+			"table": "DimShipper_Sundar"
 		}
 	}
 }
