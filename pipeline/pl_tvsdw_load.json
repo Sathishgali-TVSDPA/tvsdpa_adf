@@ -161,13 +161,37 @@
 										"inputs": [
 											{
 												"referenceName": "ds_blob",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"pcomtainername": {
+														"value": "@item().Data_Source_name",
+														"type": "Expression"
+													},
+													"pdirectoryname": {
+														"value": "@item().File_Location",
+														"type": "Expression"
+													},
+													"pfilename": {
+														"value": "@item().File_Name",
+														"type": "Expression"
+													}
+												}
 											}
 										],
 										"outputs": [
 											{
 												"referenceName": "ds_Staging",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"ptargettable": {
+														"value": "@item().Target_Table_Name",
+														"type": "Expression"
+													},
+													"ptargetschema": {
+														"value": "@item().Target_Schema_Name",
+														"type": "Expression"
+													}
+												}
 											}
 										]
 									}
