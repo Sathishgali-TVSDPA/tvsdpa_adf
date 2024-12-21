@@ -89,13 +89,7 @@
 							"inputs": [
 								{
 									"referenceName": "tvssourcedata",
-									"type": "DatasetReference",
-									"parameters": {
-										"pFileLocation": {
-											"value": "@item().File_Location",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
