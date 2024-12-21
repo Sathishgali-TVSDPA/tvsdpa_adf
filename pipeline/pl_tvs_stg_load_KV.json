@@ -1,5 +1,5 @@
 {
-	"name": "pl_tvsdw_load_KV",
+	"name": "pl_tvs_stg_load_KV",
 	"properties": {
 		"activities": [
 			{
@@ -73,6 +73,10 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
+									"preCopyScript": {
+										"value": "@concat('Truncate table ',item().Target_Schema_Name,'.',item().Target_Table_Name)",
+										"type": "Expression"
+									},
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false
 								},
