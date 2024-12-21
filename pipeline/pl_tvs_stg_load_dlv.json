@@ -23,7 +23,8 @@
 					"dataset": {
 						"referenceName": "ds_source_fwk_dlv",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
@@ -139,7 +140,17 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw_lalith",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"pTargetSchema": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pTargetTable": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
