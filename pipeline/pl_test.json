@@ -1,0 +1,14 @@
+{
+	"name": "pl_test",
+	"properties": {
+		"parameters": {
+			"Test": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "Kumar"
+		},
+		"annotations": []
+	}
+}
