@@ -106,6 +106,10 @@
 													"psourcetable": {
 														"value": "@item().Source_Table_Name",
 														"type": "Expression"
+													},
+													"pschemaname": {
+														"value": "@item().Source_Schema_Name",
+														"type": "Expression"
 													}
 												}
 											}
