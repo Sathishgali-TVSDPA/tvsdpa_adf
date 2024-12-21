@@ -5,34 +5,11 @@
 			"referenceName": "ls_blob_naveen",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"pFileLoacation": {
-				"type": "String"
-			},
-			"pFileName": {
-				"type": "String"
-			},
-			"pSourceDirectory": {
-				"type": "String"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().pFileName",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().pSourceDirectory",
-					"type": "Expression"
-				},
-				"container": {
-					"value": "@dataset().pFileLoacation",
-					"type": "Expression"
-				}
+				"type": "AzureBlobStorageLocation"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
