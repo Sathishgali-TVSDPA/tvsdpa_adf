@@ -1,5 +1,5 @@
 {
-	"name": "pl_tvsdw_load_NN",
+	"name": "pl_tvs_stg_load_NN",
 	"properties": {
 		"activities": [
 			{
@@ -33,7 +33,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Read Configuration Data",
+						"activity": "Truncate Staging Table",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -73,7 +73,8 @@
 								"sink": {
 									"type": "AzureSqlSink",
 									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
 								"translator": {
@@ -91,11 +92,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"pdatasource": {
-											"value": "@item().Data_Source_name",
+											"value": "@item().File_Location",
 											"type": "Expression"
 										},
 										"pfilelocation": {
-											"value": "@item().File_Location",
+											"value": "@item().Data_Source_name",
 											"type": "Expression"
 										},
 										"pfilename": {
@@ -123,6 +124,39 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "Truncate Staging Table",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Read Configuration Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE TABLE [stg].[StagingTVS]"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
 				}
 			}
 		],
