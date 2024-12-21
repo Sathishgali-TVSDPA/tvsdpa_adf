@@ -153,7 +153,7 @@
 					"scripts": [
 						{
 							"type": "Query",
-							"text": "TRUNCATE [STG].[STAGINGTVS_KUMAR]"
+							"text": "TRUNCATE TABLE [STG].[STAGINGTVS_KUMAR]"
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"
