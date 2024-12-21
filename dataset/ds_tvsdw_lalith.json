@@ -5,6 +5,14 @@
 			"referenceName": "ls_tvsdw_lalith",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"pTargetSchema": {
+				"type": "String"
+			},
+			"pTargetTable": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Lalith"
 		},
@@ -170,8 +178,14 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "stg",
-			"table": "StagingTVS_Lalith"
+			"schema": {
+				"value": "@dataset().pTargetSchema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().pTargetTable",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
