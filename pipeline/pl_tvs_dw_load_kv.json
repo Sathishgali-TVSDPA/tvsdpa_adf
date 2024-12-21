@@ -61,6 +61,10 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
+									"sqlReaderStoredProcedureName": {
+										"value": "@item().Incremental_Load_Sql_Script",
+										"type": "Expression"
+									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -90,17 +94,7 @@
 							"inputs": [
 								{
 									"referenceName": "ds_Stg",
-									"type": "DatasetReference",
-									"parameters": {
-										"pSourceSchemaName": {
-											"value": "@item().Source_Schema_Name",
-											"type": "Expression"
-										},
-										"pSourceTableName": {
-											"value": "@item().Source_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
