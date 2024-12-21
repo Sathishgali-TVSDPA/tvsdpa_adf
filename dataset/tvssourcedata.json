@@ -6,11 +6,14 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"pFileLocation": {
+			"pDataSource": {
 				"type": "String"
 			},
+			"pDataDirectory": {
+				"type": "string"
+			},
 			"pFileName": {
-				"type": "String"
+				"type": "string"
 			}
 		},
 		"annotations": [],
@@ -22,8 +25,12 @@
 					"value": "@dataset().pFileName",
 					"type": "Expression"
 				},
+				"folderPath": {
+					"value": "@dataset().pDataDirectory",
+					"type": "Expression"
+				},
 				"container": {
-					"value": "@dataset().pFileLocation",
+					"value": "@dataset().pDataSource",
 					"type": "Expression"
 				}
 			},
