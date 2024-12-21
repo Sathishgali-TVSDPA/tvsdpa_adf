@@ -90,8 +90,16 @@
 									"referenceName": "tvssourcedata",
 									"type": "DatasetReference",
 									"parameters": {
-										"pFileLoacation": {
+										"pdatasource": {
+											"value": "@item().Data_Source_name",
+											"type": "Expression"
+										},
+										"pfilelocation": {
 											"value": "@item().File_Location",
+											"type": "Expression"
+										},
+										"pfilename": {
+											"value": "@item().File_Name",
 											"type": "Expression"
 										}
 									}
