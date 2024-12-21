@@ -33,7 +33,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Read_Configuration_Data",
+						"activity": "Truncate_Staging_Table",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -73,10 +73,6 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"preCopyScript": {
-										"value": "@concat('Truncate table ',item().Target_Schema_Name,'.',item().Target_Table_Name)",
-										"type": "Expression"
-									},
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false
 								},
@@ -128,6 +124,39 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "Truncate_Staging_Table",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Read_Configuration_Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_kumar",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE [STG].[STAGINGTVS_KUMAR]"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
 				}
 			}
 		],
