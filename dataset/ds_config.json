@@ -1,0 +1,113 @@
+{
+	"name": "ds_config",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PK_Pipeline_Config_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Pipeline_Config_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Data_Source_name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "File_Location",
+				"type": "varchar"
+			},
+			{
+				"name": "File_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Source_Schema_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Source_Table_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Execution_Group_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Execution_Group_Sequence_Number",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Upsert_key_Column_Names",
+				"type": "varchar"
+			},
+			{
+				"name": "Target_Schema_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Target_Table_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Full_Load_Sql_Script",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Incremental_Load_Sql_Script",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Last_Full_Refresh_TimeStamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Next_Full_Refresh_TimeStamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Last_Delta_Refresh_TimeStamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Next_Delta_Refresh_TimeStamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "IS_Active_Table_Indicator",
+				"type": "bit"
+			},
+			{
+				"name": "Is_Restart_indicator",
+				"type": "bit"
+			},
+			{
+				"name": "Is_Active_EG_Indicator",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "FWK",
+			"table": "ADF_Pipeline_Configuration_Sundar"
+		}
+	}
+}
