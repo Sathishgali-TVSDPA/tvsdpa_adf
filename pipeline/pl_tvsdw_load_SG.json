@@ -17,12 +17,11 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [FWK].[ADF_Pipeline_Configuration_SG]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_source_stg",
+						"referenceName": "ds_source_fwk",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
