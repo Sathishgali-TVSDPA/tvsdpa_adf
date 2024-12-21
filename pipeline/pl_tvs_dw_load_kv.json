@@ -70,7 +70,7 @@
 									"upsertSettings": {
 										"useTempDB": true,
 										"keys": {
-											"value": "@item().Upsert_key_Column_Names",
+											"value": "@array(item().Upsert_key_Column_Names)",
 											"type": "Expression"
 										}
 									},
@@ -94,6 +94,10 @@
 									"parameters": {
 										"pSourceSchemaName": {
 											"value": "@item().Source_Schema_Name",
+											"type": "Expression"
+										},
+										"pSourceTableName": {
+											"value": "@item().Source_Table_Name",
 											"type": "Expression"
 										}
 									}
