@@ -187,6 +187,11 @@
 				}
 			}
 		],
+		"variables": {
+			"vInvokeLoop": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Lalith/Framework"
 		},
