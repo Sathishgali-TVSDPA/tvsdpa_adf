@@ -1,0 +1,30 @@
+{
+	"name": "ds_stg_shipper",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_Sundar",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"psourcetable": {
+				"type": "String"
+			},
+			"pschemaname": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().pschemaname",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().psourcetable",
+				"type": "Expression"
+			}
+		}
+	}
+}
