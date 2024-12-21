@@ -135,6 +135,84 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
+								"ifFalseActivities": [
+									{
+										"name": "Copy data from stg to dw",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobStorageReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "AzureSqlSink",
+												"writeBehavior": "insert",
+												"sqlWriterUseTableLock": false
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "ds_blob",
+												"type": "DatasetReference",
+												"parameters": {
+													"pcomtainername": {
+														"value": "@item().Data_Source_name",
+														"type": "Expression"
+													},
+													"pdirectoryname": {
+														"value": "@item().File_Location",
+														"type": "Expression"
+													},
+													"pfilename": {
+														"value": "@item().File_Name",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "ds_Staging",
+												"type": "DatasetReference",
+												"parameters": {
+													"ptargettable": {
+														"value": "@item().Target_Table_Name",
+														"type": "Expression"
+													},
+													"ptargetschema": {
+														"value": "@item().Target_Schema_Name",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								],
 								"ifTrueActivities": [
 									{
 										"name": "Copy data from source to staging",
