@@ -1,0 +1,30 @@
+{
+	"name": "ds_Stg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_kumar",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pSourceSchemaName": {
+				"type": "String"
+			},
+			"pSourceTableName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().pSourceSchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().pSourceTableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
