@@ -39,7 +39,6 @@
 						]
 					}
 				],
-				"userProperties": [],
 				"typeProperties": {
 					"items": {
 						"value": "@activity('Read Configuration Data').output.value",
