@@ -86,14 +86,14 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "tvssourcedata",
+									"referenceName": "ds_source_sg",
 									"type": "DatasetReference",
 									"parameters": {
-										"pDataSource": {
+										"pFilePath": {
 											"value": "@item().Data_Source_name",
 											"type": "Expression"
 										},
-										"pDataDirectory": {
+										"pFileDirectory": {
 											"value": "@item().File_Location",
 											"type": "Expression"
 										},
