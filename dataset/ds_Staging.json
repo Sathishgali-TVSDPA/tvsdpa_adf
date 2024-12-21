@@ -5,6 +5,14 @@
 			"referenceName": "ls_tvsdw_Sundar",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"ptargettable": {
+				"type": "String"
+			},
+			"ptargetschema": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
@@ -167,8 +175,14 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "stg",
-			"table": "StagingTVS_Sundar"
+			"schema": {
+				"value": "@dataset().ptargetschema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().ptargettable",
+				"type": "Expression"
+			}
 		}
 	}
 }
