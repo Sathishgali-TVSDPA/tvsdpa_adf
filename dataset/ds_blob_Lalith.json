@@ -5,6 +5,17 @@
 			"referenceName": "ls_tvsblob_lalith",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"pFilePath": {
+				"type": "String"
+			},
+			"pFileDirectory": {
+				"type": "String"
+			},
+			"pFileName": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Lalith"
 		},
@@ -13,8 +24,18 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "*.csv",
-				"container": "tvsdparawfiles"
+				"fileName": {
+					"value": "@dataset().pFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().pFileDirectory",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().pFilePath",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
