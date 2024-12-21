@@ -5,14 +5,6 @@
 			"referenceName": "ls_tvsdw_kumar",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"pSourceSchemaName": {
-				"type": "String"
-			},
-			"pSourceTableName": {
-				"type": "String"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": []
