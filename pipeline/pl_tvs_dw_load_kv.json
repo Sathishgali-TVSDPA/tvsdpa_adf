@@ -66,8 +66,16 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true,
+										"keys": {
+											"value": "@item().Upsert_key_Column_Names",
+											"type": "Expression"
+										}
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
 								"translator": {
@@ -94,7 +102,17 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"pSinkSchemaName": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pSinkTableName": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
