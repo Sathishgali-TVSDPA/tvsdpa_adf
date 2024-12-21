@@ -1,9 +1,30 @@
 {
 	"name": "pl_test",
 	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vTest",
+					"value": "Kumar"
+				}
+			}
+		],
 		"parameters": {
 			"Test": {
 				"type": "string"
+			}
+		},
+		"variables": {
+			"vTest": {
+				"type": "String"
 			}
 		},
 		"folder": {
