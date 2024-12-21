@@ -1,0 +1,167 @@
+{
+	"name": "pl_tvsdw_load_SG",
+	"properties": {
+		"activities": [
+			{
+				"name": "Read Configuration Data",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT * FROM [FWK].[ADF_Pipeline_Configuration_SG]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_source_stg",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "loop_DW_Tables",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Truncate the staging table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Read Configuration Data').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "load DW Tables",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "tvssourcedata",
+									"type": "DatasetReference",
+									"parameters": {
+										"pDataSource": {
+											"value": "@item().Data_Source_name",
+											"type": "Expression"
+										},
+										"pDataDirectory": {
+											"value": "@item().File_Location",
+											"type": "Expression"
+										},
+										"pFileName": {
+											"value": "@item().File_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_source_stg",
+									"type": "DatasetReference",
+									"parameters": {
+										"pSchemaName": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pTableName": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Truncate the staging table",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Read Configuration Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "TRUNCATE TABLE [stg].[StagingTVS_SG]"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"folder": {
+			"name": "Sathish/Framework"
+		},
+		"annotations": []
+	}
+}
