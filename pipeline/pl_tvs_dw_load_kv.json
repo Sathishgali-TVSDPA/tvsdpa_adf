@@ -45,6 +45,7 @@
 						"value": "@activity('GetConfigTableData').output.value",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "Load_DW_Tables",
