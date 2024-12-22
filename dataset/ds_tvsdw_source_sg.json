@@ -1,0 +1,30 @@
+{
+	"name": "ds_tvsdw_source_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pSourceTableName": {
+				"type": "String"
+			},
+			"pSourceSchemaName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().pSourceSchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().pSourceTableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
