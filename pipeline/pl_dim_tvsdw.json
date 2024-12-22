@@ -94,6 +94,10 @@
 										"pSourceTableName": {
 											"value": "@item().Source_Table_Name",
 											"type": "Expression"
+										},
+										"pSourceSchemaName": {
+											"value": "@item().Source_Schema_Name",
+											"type": "Expression"
 										}
 									}
 								}
