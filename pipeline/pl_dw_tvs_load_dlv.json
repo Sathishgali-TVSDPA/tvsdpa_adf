@@ -72,7 +72,11 @@
 									"type": "AzureSqlSink",
 									"writeBehavior": "upsert",
 									"upsertSettings": {
-										"useTempDB": true
+										"useTempDB": true,
+										"keys": {
+											"value": "@item().Upsert_key_Column_Names",
+											"type": "Expression"
+										}
 									},
 									"sqlWriterUseTableLock": false,
 									"disableMetricsCollection": false
@@ -96,7 +100,17 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw_lalith",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"psinkschema": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"psinktablename": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
