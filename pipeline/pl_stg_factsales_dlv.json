@@ -27,7 +27,13 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"Quantity"
+								"FKOrderDateID",
+								"FKShippingDateID",
+								"FKDeliveryDateID",
+								"FKDivisionID",
+								"FKDealerID",
+								"FKProductID",
+								"FKShipperID"
 							]
 						},
 						"sqlWriterUseTableLock": false,
