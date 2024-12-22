@@ -105,8 +105,7 @@
 								"sink": {
 									"type": "AzureSqlSink",
 									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false,
-									"disableMetricsCollection": false
+									"sqlWriterUseTableLock": false
 								},
 								"enableStaging": false,
 								"translator": {
@@ -140,15 +139,15 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_tvsdw_naveen",
+									"referenceName": "dssinkstg",
 									"type": "DatasetReference",
 									"parameters": {
-										"pSinkTableName": {
-											"value": "@item().Target_Table_Name",
+										"pSchemaName": {
+											"value": "@item().Target_Schema_Name",
 											"type": "Expression"
 										},
-										"pSinkSchemaName": {
-											"value": "@item().Target_Schema_Name",
+										"pTableName": {
+											"value": "@item().Target_Table_Name",
 											"type": "Expression"
 										}
 									}
