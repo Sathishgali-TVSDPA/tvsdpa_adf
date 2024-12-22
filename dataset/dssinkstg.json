@@ -1,0 +1,30 @@
+{
+	"name": "dssinkstg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_naveen",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pSchemaName": {
+				"type": "String"
+			},
+			"pTableName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().pSchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().pTableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
