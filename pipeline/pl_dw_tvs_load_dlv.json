@@ -100,17 +100,7 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw_lalith",
-									"type": "DatasetReference",
-									"parameters": {
-										"psinkschema": {
-											"value": "@item().Target_Schema_Name",
-											"type": "Expression"
-										},
-										"psinktablename": {
-											"value": "@item().Target_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						}

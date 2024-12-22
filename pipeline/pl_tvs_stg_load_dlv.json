@@ -102,17 +102,7 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw_lalith",
-									"type": "DatasetReference",
-									"parameters": {
-										"pSourceSchema": {
-											"value": "@item().Target_Schema_Name",
-											"type": "Expression"
-										},
-										"pSourceTable": {
-											"value": "@item().Target_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						}

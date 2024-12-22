@@ -5,14 +5,6 @@
 			"referenceName": "ls_tvsdw_lalith",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"psinkschema": {
-				"type": "String"
-			},
-			"psinktablename": {
-				"type": "String"
-			}
-		},
 		"folder": {
 			"name": "Lalith"
 		},
