@@ -5,6 +5,14 @@
 			"referenceName": "ls_tvsdw_lalith",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"psinkschema": {
+				"type": "String"
+			},
+			"psinktablename": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Lalith"
 		},
@@ -168,7 +176,17 @@
 				"name": "FileLocation",
 				"type": "nvarchar"
 			}
-		]
+		],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().psinkschema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().psinktablename",
+				"type": "Expression"
+			}
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
