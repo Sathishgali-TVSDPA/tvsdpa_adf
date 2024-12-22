@@ -104,11 +104,11 @@
 									"referenceName": "ds_tvsdw_lalith",
 									"type": "DatasetReference",
 									"parameters": {
-										"pTargetSchema": {
+										"pSourceSchema": {
 											"value": "@item().Target_Schema_Name",
 											"type": "Expression"
 										},
-										"pTargetTable": {
+										"pSourceTable": {
 											"value": "@item().Target_Table_Name",
 											"type": "Expression"
 										}

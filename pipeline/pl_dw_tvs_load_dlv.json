@@ -22,7 +22,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_tvsdw_lalith",
+						"referenceName": "ds_source_fwk_dlv",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
@@ -56,15 +56,9 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
 								},
 								"sink": {
 									"type": "AzureSqlSink",
@@ -86,7 +80,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_source_dlv",
+									"referenceName": "ds_tvsdw_lalith",
 									"type": "DatasetReference"
 								}
 							],
@@ -95,11 +89,11 @@
 									"referenceName": "ds_tvsdw_lalith",
 									"type": "DatasetReference",
 									"parameters": {
-										"pTargetSchema": {
+										"pSourceSchema": {
 											"value": "@item().Target_Schema_Name",
 											"type": "Expression"
 										},
-										"pTargetTable": {
+										"pSourceTable": {
 											"value": "@item().Target_Table_Name",
 											"type": "Expression"
 										}
@@ -111,11 +105,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"pSourceSchema": {
-				"type": "String"
-			}
-		},
 		"folder": {
 			"name": "Lalith/Framework"
 		},

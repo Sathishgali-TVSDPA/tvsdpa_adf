@@ -6,10 +6,10 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"pTargetSchema": {
+			"pSourceSchema": {
 				"type": "String"
 			},
-			"pTargetTable": {
+			"pSourceTable": {
 				"type": "String"
 			}
 		},
