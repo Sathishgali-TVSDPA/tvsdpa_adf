@@ -100,7 +100,17 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw_load_FWK_dlv",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"psinkschema": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"psinktable": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
