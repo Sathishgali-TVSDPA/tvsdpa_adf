@@ -99,7 +99,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_tvsdw_lalith",
+									"referenceName": "ds_tvsdw_load_FWK_dlv",
 									"type": "DatasetReference"
 								}
 							]

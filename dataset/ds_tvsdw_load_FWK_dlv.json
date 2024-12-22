@@ -1,0 +1,30 @@
+{
+	"name": "ds_tvsdw_load_FWK_dlv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_lalith",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"psinkschema": {
+				"type": "String"
+			},
+			"psinktable": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().psinkschema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().psinktable",
+				"type": "Expression"
+			}
+		}
+	}
+}
