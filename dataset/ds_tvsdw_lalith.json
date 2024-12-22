@@ -176,17 +176,7 @@
 				"name": "FileLocation",
 				"type": "nvarchar"
 			}
-		],
-		"typeProperties": {
-			"schema": {
-				"value": "@dataset().psinkschema",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().psinktablename",
-				"type": "Expression"
-			}
-		}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
