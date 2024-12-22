@@ -127,7 +127,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('GetConfigTableData').output.value",
+						"value": "@activity('GetConfigTableData').output.firstrow.Target_Schema_Name",
 						"type": "Expression"
 					},
 					"activities": [
