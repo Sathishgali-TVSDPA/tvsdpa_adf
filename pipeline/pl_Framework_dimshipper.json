@@ -1,0 +1,136 @@
+{
+	"name": "pl_Framework_dimshipper",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup for dimshipper",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from [FWK].[ADF_Pipeline_Configuration_N]\nWhere Execution_Group_Name <> 'STG'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_sourcedata_fwk",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach for DimShipper",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup for dimshipper",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup for dimshipper').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data for DimShipper",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderStoredProcedureName": {
+										"value": "@item().Incremental_Load_Sql_Script",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true,
+										"keys": {
+											"value": "@item().Upsert_key_Column_Names",
+											"type": "Expression"
+										}
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_tvsdw_naveen",
+									"type": "DatasetReference",
+									"parameters": {
+										"pSourceTableName": {
+											"value": "@item().Source_Table_Name",
+											"type": "Expression"
+										},
+										"pSourceSchemaName": {
+											"value": "@item().Source_Schema_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "dssinkstg",
+									"type": "DatasetReference",
+									"parameters": {
+										"pSchemaName": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pTableName": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "Naveen/Framework"
+		},
+		"annotations": []
+	}
+}
