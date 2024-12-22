@@ -22,7 +22,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ds_tvsdw",
+						"referenceName": "ds_source_fwk",
 						"type": "DatasetReference"
 					}
 				}
