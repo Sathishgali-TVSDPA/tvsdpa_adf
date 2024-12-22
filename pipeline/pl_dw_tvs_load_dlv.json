@@ -41,6 +41,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('ReadConfigTable').output.value",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Load_DW_Tables",
