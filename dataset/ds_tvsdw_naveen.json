@@ -6,10 +6,10 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"pSinkTableName": {
+			"pSourceTableName": {
 				"type": "String"
 			},
-			"pSinkSchemaName": {
+			"pSourceSchemaName": {
 				"type": "String"
 			}
 		},
@@ -176,17 +176,7 @@
 				"name": "FileLocation",
 				"type": "nvarchar"
 			}
-		],
-		"typeProperties": {
-			"schema": {
-				"value": "@dataset().pSinkSchemaName",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().pSinkTableName",
-				"type": "Expression"
-			}
-		}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
