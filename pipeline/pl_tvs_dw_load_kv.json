@@ -484,6 +484,10 @@
 						"PipeLine_Status": {
 							"value": "Succeeded",
 							"type": "String"
+						},
+						"PipeLine_Error_Message": {
+							"value": null,
+							"type": "String"
 						}
 					}
 				},
@@ -499,7 +503,7 @@
 					{
 						"activity": "LoopDWTables",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
