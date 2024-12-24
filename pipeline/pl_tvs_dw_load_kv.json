@@ -123,8 +123,25 @@
 							]
 						},
 						{
+							"name": "ReadStartTime",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Start_Time",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
 							"name": "usp_ResetRestartIndicator_KV",
-							"type": "Script",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
 									"activity": "Load_DW_Tables",
@@ -141,34 +158,26 @@
 								"secureInput": false
 							},
 							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[FWK].[usp_ResetRestartIndicator_KV]",
+								"storedProcedureParameters": {
+									"Pipeline_Config_ID": {
+										"value": {
+											"value": "@item().Pipeline_Config_ID",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
 							"linkedServiceName": {
 								"referenceName": "ls_tvsdw_kumar",
 								"type": "LinkedServiceReference"
-							},
-							"typeProperties": {
-								"scripts": [
-									{
-										"parameters": [
-											{
-												"name": "Pipeline_Config_ID",
-												"type": "String",
-												"value": {
-													"value": "@item().Pipeline_Config_ID",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											}
-										],
-										"type": "Query",
-										"text": "Exec [FWK].[usp_ResetRestartIndicator_KV]"
-									}
-								],
-								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						},
 						{
 							"name": "usp_Load_Pipeline_Activity_Execution_Log_KV",
-							"type": "Script",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
 									"activity": "usp_ResetRestartIndicator_KV",
@@ -185,148 +194,72 @@
 								"secureInput": false
 							},
 							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_KV]",
+								"storedProcedureParameters": {
+									"Pipeline_ID": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Pipeline_Name": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ExecutionGroup_Name": {
+										"value": "",
+										"type": "String"
+									},
+									"ExecutionGroup_Sequence_number": {
+										"value": "",
+										"type": "String"
+									},
+									"Target_Table_Full_Name": {
+										"value": "",
+										"type": "String"
+									},
+									"Data_Load_Type_Flag": {
+										"value": "",
+										"type": "String"
+									},
+									"CopyActivity_Rows_Read_Count": {
+										"value": "",
+										"type": "Int64"
+									},
+									"CopyActivity_Rows_Write_Count": {
+										"value": "",
+										"type": "Int64"
+									},
+									"CopyActivity_Start_TimeStamp": {
+										"value": "",
+										"type": "Datetime"
+									},
+									"CopyActivity_End_TimeStamp": {
+										"value": "",
+										"type": "Datetime"
+									},
+									"CopyActivity_Status_Name": {
+										"value": "",
+										"type": "String"
+									},
+									"CopyActivity_Error_Code": {
+										"value": null,
+										"type": "String"
+									},
+									"CopyActivity_Error_Description": {
+										"value": null,
+										"type": "String"
+									}
+								}
+							},
 							"linkedServiceName": {
 								"referenceName": "ls_tvsdw_kumar",
 								"type": "LinkedServiceReference"
-							},
-							"typeProperties": {
-								"scripts": [
-									{
-										"parameters": [
-											{
-												"name": "Pipeline_ID",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().RunId",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "Pipeline_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().Pipeline",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "ExecutionGroup_Name",
-												"type": "String",
-												"value": {
-													"value": "@item().Execution_Group_Name",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "ExecutionGroup_Sequence_number",
-												"type": "Int64",
-												"value": {
-													"value": "@item().Execution_Group_Sequence_Number",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "Target_Table_Full_Name",
-												"type": "String",
-												"value": {
-													"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "Data_Load_Type_Flag",
-												"type": "String",
-												"value": {
-													"value": "Incremental",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_Rows_Read_Count",
-												"type": "Int64",
-												"value": {
-													"value": "@activity('Load_DW_Tables').output.rowsread",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_Rows_Write_Count",
-												"type": "Int64",
-												"value": {
-													"value": "@activity('Load_DW_Tables').output.rowscopied",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_Start_TimeStamp",
-												"type": "Datetime",
-												"value": {
-													"value": "@formatDateTime(variables('Start_Time'))",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_End_TimeStamp",
-												"type": "Datetime",
-												"value": {
-													"value": "@utcNow()",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_Status_Name",
-												"type": "String",
-												"value": {
-													"value": "@activity('Load_DW_Tables').output.status",
-													"type": "Expression"
-												},
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_Error_Code",
-												"type": "String",
-												"value": null,
-												"direction": "Input"
-											},
-											{
-												"name": "CopyActivity_Error_Description",
-												"type": "String",
-												"value": null,
-												"direction": "Input"
-											}
-										],
-										"type": "Query",
-										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_KV]"
-									}
-								],
-								"scriptBlockExecutionTimeout": "02:00:00"
-							}
-						},
-						{
-							"name": "ReadStartTime",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "Start_Time",
-								"value": {
-									"value": "@utcNow()",
-									"type": "Expression"
-								}
 							}
 						}
 					]
