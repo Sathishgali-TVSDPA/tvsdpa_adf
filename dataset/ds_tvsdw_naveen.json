@@ -5,6 +5,14 @@
 			"referenceName": "ls_tvsdw_naveen",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"pSinkSchemaName": {
+				"type": "String"
+			},
+			"pSinkTableName": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Naveen"
 		},
@@ -170,8 +178,14 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "dw",
-			"table": "dimdealer"
+			"schema": {
+				"value": "@dataset().pSinkSchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().pSinkTableName",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
