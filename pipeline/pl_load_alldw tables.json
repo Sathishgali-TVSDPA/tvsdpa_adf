@@ -466,6 +466,33 @@
 					"referenceName": "ls_tvsdw_lalith",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "usp_ResetRestartIndicatorToOne_DLV",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Loop DWTables",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[FWK].[usp_ResetRestartIndicatorToOne_DLV]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_lalith",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"variables": {
