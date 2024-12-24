@@ -5,14 +5,6 @@
 			"referenceName": "ls_tvsdw_naveen",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"pSourceTableName": {
-				"type": "String"
-			},
-			"pSourceSchemaName": {
-				"type": "String"
-			}
-		},
 		"folder": {
 			"name": "Naveen"
 		},
