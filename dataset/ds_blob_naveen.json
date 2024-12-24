@@ -24,18 +24,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().pFileName",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().pFileDirectory",
-					"type": "Expression"
-				},
-				"container": {
-					"value": "@dataset().pFilePath",
-					"type": "Expression"
-				}
+				"fileName": "*.csv",
+				"folderPath": "sourcefiles/tvsdparawfiles",
+				"container": "tvsdparawfiles"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
