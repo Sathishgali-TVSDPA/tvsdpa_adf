@@ -25,7 +25,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT tvs.DivisionName,tvs.DivisionID,geo.PKGeographyID as FKGeographyID\nFROM [stg].[StagingTVS] as tvs\nINNER JOIN \nDW.DimGeography as geo on tvs.DivisionPostalCode=geo.PostalCode",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_dimdivision_NN]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
