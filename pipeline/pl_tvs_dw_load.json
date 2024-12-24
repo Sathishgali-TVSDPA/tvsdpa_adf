@@ -64,49 +64,6 @@
 							}
 						},
 						{
-							"name": "usp_ResetRestartIndicator_NN",
-							"type": "Script",
-							"dependsOn": [
-								{
-									"activity": "load dwtables",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"linkedServiceName": {
-								"referenceName": "ls_tvsdw_naveen",
-								"type": "LinkedServiceReference"
-							},
-							"typeProperties": {
-								"scripts": [
-									{
-										"parameters": [
-											{
-												"name": "Pipeline_Config_ID",
-												"type": "String",
-												"value": {
-													"value": "@item().Pipeline_Config_ID",
-													"type": "Expression"
-												}
-											}
-										],
-										"type": "Query",
-										"text": "Exec [FWK].[usp_ResetRestartIndicator_NN]"
-									}
-								],
-								"scriptBlockExecutionTimeout": "02:00:00"
-							}
-						},
-						{
 							"name": "load dwtables",
 							"type": "Copy",
 							"dependsOn": [
@@ -167,23 +124,49 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw_naveen",
-									"type": "DatasetReference",
-									"parameters": {
-										"pSinkSchemaName": {
-											"value": "@item().Target_Schema_Name",
-											"type": "Expression"
-										},
-										"pSinkTableName": {
-											"value": "@item().Target_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						},
 						{
-							"name": "on sucess usp_Load_Pipeline_Activity_Execution_Log_NN",
-							"type": "Script",
+							"name": "usp_ResetRestartIndicator_NN",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "load dwtables",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[FWK].[usp_ResetRestartIndicator_NN]",
+								"storedProcedureParameters": {
+									"Pipeline_Config_ID": {
+										"value": {
+											"value": "@item().Pipeline_Config_ID",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_naveen",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Success usp_Load_Pipeline_Activity_Execution_Log_NN",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
 									"activity": "usp_ResetRestartIndicator_NN",
@@ -200,99 +183,83 @@
 								"secureInput": false
 							},
 							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Execution_Log_NN]",
+								"storedProcedureParameters": {
+									"Pipeline_Id": {
+										"value": {
+											"value": "@pipeline().GroupId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Pipeline_Name": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Execution_Group_Name": {
+										"value": {
+											"value": "@item().Execution_Group_Name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Trigger_Id": {
+										"value": {
+											"value": "@pipeline().TriggerId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Trigger_Name": {
+										"value": {
+											"value": "@pipeline().TriggerName",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Trigger_Type_Name": {
+										"value": {
+											"value": "@pipeline().TriggerType",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Start_TimeStamp": {
+										"value": {
+											"value": "@variables('vStartTime')",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"PipeLine_End_TimeStamp": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"PipeLine_Status": {
+										"value": "@activity('Load_DW_Tables').output.executionDetails[0].status",
+										"type": "String"
+									},
+									"PipeLine_Run_Duration": {
+										"value": null,
+										"type": "Int64"
+									}
+								}
+							},
 							"linkedServiceName": {
 								"referenceName": "ls_tvsdw_naveen",
 								"type": "LinkedServiceReference"
-							},
-							"typeProperties": {
-								"scripts": [
-									{
-										"parameters": [
-											{
-												"name": "Pipeline_Id",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().GroupId",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "Pipeline_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().Pipeline",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "Execution_Group_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().Pipeline",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Trigger_Id",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().TriggerId",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Trigger_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().TriggerName",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Trigger_Type_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline()?.TriggeredByPipelineName",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Start_TimeStamp",
-												"type": "Datetime",
-												"value": {
-													"value": "@variables('vStartTime')",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_End_TimeStamp",
-												"type": "Datetime",
-												"value": {
-													"value": "@utcNow()",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Status",
-												"type": "String",
-												"value": null
-											},
-											{
-												"name": "PipeLine_Run_Duration",
-												"type": "Int64",
-												"value": null
-											}
-										],
-										"type": "Query",
-										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]"
-									}
-								],
-								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						},
 						{
-							"name": "on fail usp_Load_Pipeline_Activity_Execution_Log_NN",
-							"type": "Script",
+							"name": "Stored procedure2",
+							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
 									"activity": "usp_ResetRestartIndicator_NN",
@@ -308,99 +275,7 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": [],
-							"linkedServiceName": {
-								"referenceName": "ls_tvsdw_naveen",
-								"type": "LinkedServiceReference"
-							},
-							"typeProperties": {
-								"scripts": [
-									{
-										"parameters": [
-											{
-												"name": "Pipeline_Id",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().GroupId",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "Pipeline_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().Pipeline",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "Execution_Group_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().GroupId",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Trigger_Id",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().TriggerId",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Trigger_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline().TriggerName",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Trigger_Type_Name",
-												"type": "String",
-												"value": {
-													"value": "@pipeline()?.TriggeredByPipelineName",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Start_TimeStamp",
-												"type": "Datetime",
-												"value": {
-													"value": "@variables('vStartTime')",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_End_TimeStamp",
-												"type": "Datetime",
-												"value": {
-													"value": "@utcNow()",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Status",
-												"type": "String",
-												"value": {
-													"value": "@item().output.message",
-													"type": "Expression"
-												}
-											},
-											{
-												"name": "PipeLine_Run_Duration",
-												"type": "Int64",
-												"value": null
-											}
-										],
-										"type": "Query",
-										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]"
-									}
-								],
-								"scriptBlockExecutionTimeout": "02:00:00"
-							}
+							"userProperties": []
 						}
 					]
 				}
