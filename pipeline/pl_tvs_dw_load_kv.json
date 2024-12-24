@@ -108,17 +108,7 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw",
-									"type": "DatasetReference",
-									"parameters": {
-										"pSinkSchemaName": {
-											"value": "@item().Target_Schema_Name",
-											"type": "Expression"
-										},
-										"pSinkTableName": {
-											"value": "@item().Target_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						},
@@ -526,8 +516,6 @@
 			{
 				"name": "Failure usp_Load_Pipeline_Execution_Log_KV_copy1",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "LoopDWTables",
