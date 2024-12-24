@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "TVS_202201.csv",
+				"fileName": "*.csv",
 				"container": "tvsdparawfiles"
 			},
 			"columnDelimiter": ",",
