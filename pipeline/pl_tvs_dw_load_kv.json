@@ -482,7 +482,7 @@
 							"type": "String"
 						},
 						"PipeLine_Status": {
-							"value": "",
+							"value": "Succeeded",
 							"type": "String"
 						}
 					}
@@ -493,13 +493,13 @@
 				}
 			},
 			{
-				"name": "Stored procedure2",
+				"name": "usp_ResetRestartIndicatorToOne_KV",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
 						"activity": "LoopDWTables",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
 						]
 					}
 				],
@@ -510,7 +510,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[FWK].[usp_ResetRestartIndicatorToOne_KV]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_kumar",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"variables": {
