@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT\n    dd.[PKDateID] AS FKDateID,\n    div.PKDivisionID AS FKDivisionID,\n    dealer.PKDealerID AS FKDealerID,\n    dp.PKProductID AS FKProductID,\n    ds.PKShipperID AS FKShipperID,\n    tvs.Quantity,\n    tvs.UnitPrice,\n    tvs.Discount\nFROM \n    [stg].[StagingTVS] AS tvs\nINNER JOIN\n    DW.DimDate AS dd ON tvs.OrderDate = dd.[Date]\nINNER JOIN\n    DW.DimDivision AS div ON tvs.DivisionID = div.DivisionID\nINNER JOIN\n    DW.DimDealer AS dealer ON tvs.DealerID = dealer.DealerID\nINNER JOIN\n    DW.DimProduct AS dp ON tvs.ProductID = dp.ProductID\nINNER JOIN\n    DW.DimShipper AS ds ON tvs.ShipperID = ds.ShipperID;\n",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_DimMarket_NN]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -58,7 +58,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_sink_factsale",
+						"referenceName": "ds_sink_factsales",
 						"type": "DatasetReference"
 					}
 				]
