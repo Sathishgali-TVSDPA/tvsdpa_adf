@@ -11,8 +11,8 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "*.csv",
-				"folderPath": "sourcefiles/tvsdparawfiles",
-				"container": "tvsdparawfiles"
+				"folderPath": "/tvsdparawfiles/",
+				"container": "sourcefiles"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
