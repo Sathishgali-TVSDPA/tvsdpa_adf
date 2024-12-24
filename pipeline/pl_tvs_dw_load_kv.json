@@ -516,8 +516,6 @@
 			{
 				"name": "Failure usp_Load_Pipeline_Execution_Log_KV_copy1",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "LoopDWTables",
@@ -595,10 +593,7 @@
 							"type": "String"
 						},
 						"PipeLine_Error_Message": {
-							"value": {
-								"value": "@concat(activity('GetConfigTableData').error?.message,'|',\nactivity('Load_DW_Tables')?.error?.message,'|',activity('usp_ResetRestartIndicator_KV')?.error?.message,'|',activity('Success usp_Load_Pipeline_Activity_Execution_Log_KV')?.error?.message,'|',activity('Error usp_Load_Pipeline_Activity_Execution_Log_KV_')?.error?.message)",
-								"type": "Expression"
-							},
+							"value": null,
 							"type": "String"
 						}
 					}
