@@ -50,7 +50,14 @@
 						{
 							"name": "Load_DW_Tables",
 							"type": "Copy",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "ReadStartTime",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "0.12:00:00",
 								"retry": 0,
@@ -157,11 +164,152 @@
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
+						},
+						{
+							"name": "usp_Load_Pipeline_Activity_Execution_Log_KV",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "usp_ResetRestartIndicator_KV",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_kumar",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"value": ""
+											}
+										],
+										"type": "Query",
+										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_KV]"
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						},
+						{
+							"name": "Script3",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "usp_ResetRestartIndicator_KV",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"scripts": [],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						},
+						{
+							"name": "ReadStartTime",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Start_Time",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
 						}
 					]
 				}
+			},
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "LoopDWTables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scripts": [],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			},
+			{
+				"name": "Script4",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "LoopDWTables",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_kumar",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "usp_ResetRestartIndicatorToOne_KV"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
 			}
 		],
+		"variables": {
+			"Start_Time": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Kumar/Framework"
 		},
