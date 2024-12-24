@@ -170,7 +170,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "usp_ResetRestartIndicator_KV",
+									"activity": "Load_DW_Tables",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -281,7 +281,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "usp_ResetRestartIndicator_KV",
+									"activity": "Load_DW_Tables",
 									"dependencyConditions": [
 										"Failed"
 									]
