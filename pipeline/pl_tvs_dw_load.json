@@ -430,7 +430,7 @@
 				}
 			},
 			{
-				"name": "Script4",
+				"name": "usp_ResetRestartIndicatorToOne_NN",
 				"type": "Script",
 				"dependsOn": [
 					{
@@ -448,8 +448,17 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				},
 				"typeProperties": {
-					"scripts": [],
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "usp_ResetRestartIndicatorToOne_KV"
+						}
+					],
 					"scriptBlockExecutionTimeout": "02:00:00"
 				}
 			}
