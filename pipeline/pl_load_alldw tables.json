@@ -41,6 +41,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Read Config table').output.value",
+						"type": "Expression"
+					},
 					"isSequential": true,
 					"activities": [
 						{
