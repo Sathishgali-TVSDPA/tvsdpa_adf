@@ -193,37 +193,108 @@
 									{
 										"parameters": [
 											{
-												"value": ""
+												"name": "Pipeline_ID",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().RunId",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Pipeline_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "ExecutionGroup_Name",
+												"type": "String",
+												"value": {
+													"value": "@item().Execution_Group_Name",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "ExecutionGroup_Sequence_number",
+												"type": "Int64",
+												"value": {
+													"value": "@item().Execution_Group_Sequence_Number",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Target_Table_Full_Name",
+												"type": "String",
+												"value": {
+													"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Data_Load_Type_Flag",
+												"type": "String",
+												"value": {
+													"value": "Incremental",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "CopyActivity_Rows_Read_Count",
+												"type": "Int64",
+												"value": {
+													"value": "@activity('Load_DW_Tables').output.rowsread",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "CopyActivity_Rows_Write_Count",
+												"type": "Int64",
+												"value": {
+													"value": "@activity('Load_DW_Tables').output.rowscopied",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "CopyActivity_Start_TimeStamp",
+												"type": "Datetime",
+												"value": {
+													"value": "@formatDateTime(variables('Start_Time'))",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "CopyActivity_End_TimeStamp",
+												"type": "Datetime",
+												"value": {
+													"value": "@utcNow()",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "CopyActivity_Status_Name",
+												"type": "String",
+												"value": {
+													"value": "@activity('Load_DW_Tables').output.status",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "CopyActivity_Error_Code",
+												"type": "String",
+												"value": null
+											},
+											{
+												"name": "CopyActivity_Error_Description",
+												"type": "String",
+												"value": null
 											}
 										],
 										"type": "Query",
 										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_KV]"
 									}
 								],
-								"scriptBlockExecutionTimeout": "02:00:00"
-							}
-						},
-						{
-							"name": "Script3",
-							"type": "Script",
-							"dependsOn": [
-								{
-									"activity": "usp_ResetRestartIndicator_KV",
-									"dependencyConditions": [
-										"Failed"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"scripts": [],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						},
