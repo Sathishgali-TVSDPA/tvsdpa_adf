@@ -134,7 +134,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Success usp_Load_Pipeline_Activity_Execution_Log_KV",
+									"activity": "Load_DW_Tables",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -170,7 +170,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Load_DW_Tables",
+									"activity": "usp_ResetRestartIndicator_KV",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -281,10 +281,9 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Success usp_Load_Pipeline_Activity_Execution_Log_KV",
+									"activity": "usp_ResetRestartIndicator_KV",
 									"dependencyConditions": [
-										"Failed",
-										"Skipped"
+										"Failed"
 									]
 								}
 							],
@@ -521,8 +520,7 @@
 					{
 						"activity": "LoopDWTables",
 						"dependencyConditions": [
-							"Failed",
-							"Skipped"
+							"Failed"
 						]
 					}
 				],
