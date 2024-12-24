@@ -526,6 +526,8 @@
 			{
 				"name": "Failure usp_Load_Pipeline_Execution_Log_KV_copy1",
 				"type": "SqlServerStoredProcedure",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "LoopDWTables",
