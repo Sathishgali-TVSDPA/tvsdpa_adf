@@ -243,7 +243,10 @@
 										"type": "Datetime"
 									},
 									"PipeLine_Status": {
-										"value": "@activity('Load_DW_Tables').output.executionDetails[0].status",
+										"value": {
+											"value": "@item().status",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"PipeLine_Run_Duration": {
@@ -258,7 +261,7 @@
 							}
 						},
 						{
-							"name": "Stored procedure2",
+							"name": "Error usp_Load_Pipeline_Activity_Execution_Log_KV_",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -275,7 +278,83 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": []
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]",
+								"storedProcedureParameters": {
+									"Pipeline_Id": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Pipeline_Name": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Execution_Group_Name": {
+										"value": {
+											"value": "@item().Execution_Group_Name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Trigger_Id": {
+										"value": {
+											"value": "@pipeline().TriggerId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Trigger_Name": {
+										"value": {
+											"value": "@pipeline().TriggerName",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Trigger_Type_Name": {
+										"value": {
+											"value": "@pipeline().TriggerType",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Start_TimeStamp": {
+										"value": {
+											"value": "@variables('vStartTime')",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"PipeLine_End_TimeStamp": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"PipeLine_Status": {
+										"value": {
+											"value": "@item().status",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipeLine_Run_Duration": {
+										"value": null,
+										"type": "Int64"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_naveen",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
