@@ -288,7 +288,7 @@
 				}
 			},
 			{
-				"name": "Success usp_Load_Pipeline_Execution_Log_DLV",
+				"name": "Success",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -378,7 +378,7 @@
 				}
 			},
 			{
-				"name": "Failure usp_Load_Pipeline_Execution_Log_DLV",
+				"name": "Failure",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -468,7 +468,7 @@
 				}
 			},
 			{
-				"name": "usp_ResetRestartIndicatorToOne_DLV",
+				"name": "ResetRestartIndicatorToOne",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
