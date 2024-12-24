@@ -1,9 +1,9 @@
 {
-	"name": "pl_load_dwtables",
+	"name": "pl_tvs_dw_load",
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
+				"name": "load dw tables",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": "Select * from [FWK].[ADF_Pipeline_Configuration_N] \nwhere execution_group_name <> 'STG' and Is_Restart_indicator =1 and IS_Active_Table_Indicator =1\nORDER BY Execution_Group_Sequence_Number",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -31,7 +32,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "load dw tables",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -39,31 +40,12 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('load dw tables').output",
+						"type": "Expression"
+					},
+					"isSequential": true,
 					"activities": [
-						{
-							"name": "load dwtables",
-							"type": "Script",
-							"dependsOn": [
-								{
-									"activity": "Set variable1",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"scripts": [],
-								"scriptBlockExecutionTimeout": "02:00:00"
-							}
-						},
 						{
 							"name": "Set variable1",
 							"type": "SetVariable",
@@ -72,10 +54,17 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": []
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "vStartTime",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
 						},
 						{
-							"name": "usp_resetrestartindicator",
+							"name": "usp_ResetRestartIndicator_NN",
 							"type": "Script",
 							"dependsOn": [
 								{
@@ -93,17 +82,36 @@
 								"secureInput": false
 							},
 							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_naveen",
+								"type": "LinkedServiceReference"
+							},
 							"typeProperties": {
-								"scripts": [],
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "Pipeline_Config_ID",
+												"type": "String",
+												"value": {
+													"value": "@item().Pipeline_Config_ID",
+													"type": "Expression"
+												}
+											}
+										],
+										"type": "Query",
+										"text": "Exec [FWK].[usp_ResetRestartIndicator_NN]"
+									}
+								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						},
 						{
-							"name": "Script1",
-							"type": "Script",
+							"name": "load dwtables",
+							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "usp_resetrestartindicator",
+									"activity": "Set variable1",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -118,16 +126,176 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"scripts": [],
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderStoredProcedureName": {
+										"value": "@item().Incremental_Load_Sql_Script",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true,
+										"keys": {
+											"value": "@array(item().Upsert_key_Column_Names)",
+											"type": "Expression"
+										}
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_tvsdw_naveen",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_tvsdw_naveen",
+									"type": "DatasetReference",
+									"parameters": {
+										"pSinkSchemaName": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pSinkTableName": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "on sucess usp_Load_Pipeline_Activity_Execution_Log_NN",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "usp_ResetRestartIndicator_NN",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_naveen",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "Pipeline_Id",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().GroupId",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Pipeline_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Execution_Group_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Trigger_Id",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().TriggerId",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Trigger_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().TriggerName",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Trigger_Type_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline()?.TriggeredByPipelineName",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Start_TimeStamp",
+												"type": "Datetime",
+												"value": {
+													"value": "@variables('vStartTime')",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_End_TimeStamp",
+												"type": "Datetime",
+												"value": {
+													"value": "@utcNow()",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Status",
+												"type": "String",
+												"value": null
+											},
+											{
+												"name": "PipeLine_Run_Duration",
+												"type": "Int64",
+												"value": null
+											}
+										],
+										"type": "Query",
+										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]"
+									}
+								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						},
 						{
-							"name": "Script2",
+							"name": "on fail usp_Load_Pipeline_Activity_Execution_Log_NN",
 							"type": "Script",
 							"dependsOn": [
 								{
-									"activity": "usp_resetrestartindicator",
+									"activity": "usp_ResetRestartIndicator_NN",
 									"dependencyConditions": [
 										"Failed"
 									]
@@ -141,8 +309,96 @@
 								"secureInput": false
 							},
 							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_naveen",
+								"type": "LinkedServiceReference"
+							},
 							"typeProperties": {
-								"scripts": [],
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "Pipeline_Id",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().GroupId",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Pipeline_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().Pipeline",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "Execution_Group_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().GroupId",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Trigger_Id",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().TriggerId",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Trigger_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline().TriggerName",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Trigger_Type_Name",
+												"type": "String",
+												"value": {
+													"value": "@pipeline()?.TriggeredByPipelineName",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Start_TimeStamp",
+												"type": "Datetime",
+												"value": {
+													"value": "@variables('vStartTime')",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_End_TimeStamp",
+												"type": "Datetime",
+												"value": {
+													"value": "@utcNow()",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Status",
+												"type": "String",
+												"value": {
+													"value": "@item().output.message",
+													"type": "Expression"
+												}
+											},
+											{
+												"name": "PipeLine_Run_Duration",
+												"type": "Int64",
+												"value": null
+											}
+										],
+										"type": "Query",
+										"text": "EXEC [EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]"
+									}
+								],
 								"scriptBlockExecutionTimeout": "02:00:00"
 							}
 						}
@@ -198,6 +454,11 @@
 				}
 			}
 		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Naveen/Framework"
 		},
