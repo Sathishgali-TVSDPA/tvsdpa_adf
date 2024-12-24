@@ -596,7 +596,7 @@
 						},
 						"PipeLine_Error_Message": {
 							"value": {
-								"value": "@concat(activity('GetConfigTableData').Error?.message,'|',\nactivity('Load_DW_Tables')?.error?.message,'|',activity('usp_ResetRestartIndicator_KV')?.error?.message,'|',activity('Success usp_Load_Pipeline_Activity_Execution_Log_KV')?.error?.message,'|',activity('Error usp_Load_Pipeline_Activity_Execution_Log_KV_')?.error?.message)",
+								"value": "@concat(activity('GetConfigTableData').Error.message,'|',\nactivity('Load_DW_Tables').error.message,'|',activity('usp_ResetRestartIndicator_KV').error.message,'|',activity('Success usp_Load_Pipeline_Activity_Execution_Log_KV').error.message,'|',activity('Error usp_Load_Pipeline_Activity_Execution_Log_KV_').error.message)",
 								"type": "Expression"
 							},
 							"type": "String"
