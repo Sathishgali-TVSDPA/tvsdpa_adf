@@ -212,39 +212,63 @@
 										"type": "String"
 									},
 									"ExecutionGroup_Name": {
-										"value": "",
+										"value": {
+											"value": "@item().Execution_Group_Name",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"ExecutionGroup_Sequence_number": {
-										"value": "",
+										"value": {
+											"value": "@item().Execution_Group_Sequence_Number",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"Target_Table_Full_Name": {
-										"value": "",
+										"value": {
+											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"Data_Load_Type_Flag": {
-										"value": "",
+										"value": "Incremental",
 										"type": "String"
 									},
 									"CopyActivity_Rows_Read_Count": {
-										"value": "",
+										"value": {
+											"value": "@activity('Load_DW_Tables').output.rowsread",
+											"type": "Expression"
+										},
 										"type": "Int64"
 									},
 									"CopyActivity_Rows_Write_Count": {
-										"value": "",
+										"value": {
+											"value": "@activity('Load_DW_Tables').output.rowscopied",
+											"type": "Expression"
+										},
 										"type": "Int64"
 									},
 									"CopyActivity_Start_TimeStamp": {
-										"value": "",
+										"value": {
+											"value": "@formatDateTime(variables('Start_Time'))",
+											"type": "Expression"
+										},
 										"type": "Datetime"
 									},
 									"CopyActivity_End_TimeStamp": {
-										"value": "",
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
 										"type": "Datetime"
 									},
 									"CopyActivity_Status_Name": {
-										"value": "",
+										"value": {
+											"value": "@activity('Load_DW_Tables').output.status",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"CopyActivity_Error_Code": {
