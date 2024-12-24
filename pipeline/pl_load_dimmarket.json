@@ -93,7 +93,70 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[DW].[usp_load_stg_DimMarket_NN]"
+					"storedProcedureName": "[DW].[usp_load_stg_DimMarket_NN]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy data1').output.dataread",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy data1').output.datawritten",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int64"
+						},
+						"ErrorID": {
+							"value": null,
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": null,
+							"type": "String"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_tvsdw_naveen",
@@ -120,7 +183,76 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[DW].[usp_load_stg_DimMarket_NN]"
+					"storedProcedureName": "[DW].[usp_load_stg_DimMarket_NN]",
+					"storedProcedureParameters": {
+						"PipelineID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineRunID": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"RowsRead": {
+							"value": {
+								"value": "@activity('Copy data1').output.rowsread",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"RowsWritten": {
+							"value": {
+								"value": "@activity('Copy data1').output.rowswritten",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						},
+						"StartTime": {
+							"value": {
+								"value": "@variables('vStartTime')",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"EndTime": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"Duration": {
+							"value": null,
+							"type": "Int64"
+						},
+						"ErrorID": {
+							"value": {
+								"value": "@activity('Copy data1').error.errorcode",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ErrorDesc": {
+							"value": {
+								"value": "@activity('Copy data1').errormessage",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_tvsdw_naveen",
