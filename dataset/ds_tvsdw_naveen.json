@@ -170,14 +170,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().pSourceSchemaName",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().pSourceTableName",
-				"type": "Expression"
-			}
+			"schema": "dw",
+			"table": "dimdealer"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
