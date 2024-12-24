@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "    SELECT DISTINCT \n    STG.DealerAddress AS [ADDRESS],\n    STG.DealerPostalCode AS PostalCode,\n    STG.DealerCity AS City,\n    STG.DealerState AS [State],\n    STG.DealerCountry AS Country,\n    STG.DealerPhone AS [PhoneNumber]\nFROM [stg].[StagingTVS] AS STG\nUNION ALL\nSELECT DISTINCT \n    STG.DivisionAddress AS [ADDRESS],  -- Change [Address] to [ADDRESS]\n    STG.DivisionPostalCode AS PostalCode,\n    STG.DivisionCity AS City,\n    STG.DivisionState AS [State],\n    STG.DivisionCountry AS Country,\n    STG.DivisionPhone AS [PhoneNumber]\nFROM [stg].[StagingTVS] AS STG",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_DimGeography_NN]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
