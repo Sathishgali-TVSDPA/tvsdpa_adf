@@ -155,7 +155,8 @@
 												"value": {
 													"value": "@item().Pipeline_Config_ID",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											}
 										],
 										"type": "Query",
@@ -198,7 +199,8 @@
 												"value": {
 													"value": "@pipeline().RunId",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "Pipeline_Name",
@@ -206,7 +208,8 @@
 												"value": {
 													"value": "@pipeline().Pipeline",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "ExecutionGroup_Name",
@@ -214,7 +217,8 @@
 												"value": {
 													"value": "@item().Execution_Group_Name",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "ExecutionGroup_Sequence_number",
@@ -222,7 +226,8 @@
 												"value": {
 													"value": "@item().Execution_Group_Sequence_Number",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "Target_Table_Full_Name",
@@ -230,7 +235,8 @@
 												"value": {
 													"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "Data_Load_Type_Flag",
@@ -238,7 +244,8 @@
 												"value": {
 													"value": "Incremental",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_Rows_Read_Count",
@@ -246,7 +253,8 @@
 												"value": {
 													"value": "@activity('Load_DW_Tables').output.rowsread",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_Rows_Write_Count",
@@ -254,7 +262,8 @@
 												"value": {
 													"value": "@activity('Load_DW_Tables').output.rowscopied",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_Start_TimeStamp",
@@ -262,7 +271,8 @@
 												"value": {
 													"value": "@formatDateTime(variables('Start_Time'))",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_End_TimeStamp",
@@ -270,7 +280,8 @@
 												"value": {
 													"value": "@utcNow()",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_Status_Name",
@@ -278,17 +289,20 @@
 												"value": {
 													"value": "@activity('Load_DW_Tables').output.status",
 													"type": "Expression"
-												}
+												},
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_Error_Code",
 												"type": "String",
-												"value": null
+												"value": null,
+												"direction": "Input"
 											},
 											{
 												"name": "CopyActivity_Error_Description",
 												"type": "String",
-												"value": null
+												"value": null,
+												"direction": "Input"
 											}
 										],
 										"type": "Query",
