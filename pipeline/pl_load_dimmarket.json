@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT tvs.MarketID,tvs.Market\nFROM [stg].[StagingTVS] as tvs",
+						"sqlReaderStoredProcedureName": "[DW].[usp_load_stg_DimMarket_NN]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -34,7 +34,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"MarketID"
+								"DealerID"
 							]
 						},
 						"sqlWriterUseTableLock": false,
