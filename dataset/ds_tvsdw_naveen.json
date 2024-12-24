@@ -168,7 +168,11 @@
 				"name": "FileLocation",
 				"type": "nvarchar"
 			}
-		]
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "StagingTVS"
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
