@@ -114,6 +114,49 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "usp_ResetRestartIndicator_KV",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "Load_DW_Tables",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_kumar",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"parameters": [
+											{
+												"name": "Pipeline_Config_ID",
+												"type": "String",
+												"value": {
+													"value": "@item().Pipeline_Config_ID",
+													"type": "Expression"
+												}
+											}
+										],
+										"type": "Query",
+										"text": "Exec [FWK].[usp_ResetRestartIndicator_KV]"
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
 						}
 					]
 				}
