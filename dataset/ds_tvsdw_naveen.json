@@ -2,7 +2,7 @@
 	"name": "ds_tvsdw_naveen",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_tvsdw_naveen",
+			"referenceName": "ls_tvsdw_nn",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -168,11 +168,7 @@
 				"name": "FileLocation",
 				"type": "nvarchar"
 			}
-		],
-		"typeProperties": {
-			"schema": "stg",
-			"table": "StagingTVS"
-		}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
