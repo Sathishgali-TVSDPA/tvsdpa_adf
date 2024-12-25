@@ -367,10 +367,6 @@
 						"PipeLine_Status": {
 							"value": "Success",
 							"type": "String"
-						},
-						"PipeLine_Run_Duration": {
-							"value": null,
-							"type": "Int64"
 						}
 					}
 				},
