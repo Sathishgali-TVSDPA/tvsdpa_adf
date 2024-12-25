@@ -478,10 +478,6 @@
 										},
 										"type": "String"
 									},
-									"CopyActivity_Copy_Duration_In_Second": {
-										"value": null,
-										"type": "Int64"
-									},
 									"CopyActivity_Error_Code": {
 										"value": null,
 										"type": "String"
