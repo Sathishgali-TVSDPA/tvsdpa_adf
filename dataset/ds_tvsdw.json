@@ -2,8 +2,16 @@
 	"name": "ds_tvsdw",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_tvsdw_sathish",
+			"referenceName": "ls_tvsdw_nn",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pSchemaName": {
+				"type": "String"
+			},
+			"PTableName": {
+				"type": "String"
+			}
 		},
 		"folder": {
 			"name": "Sathish"
@@ -12,8 +20,14 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "stg",
-			"table": "StagingTVS_SG"
+			"schema": {
+				"value": "@dataset().pSchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().PTableName",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
