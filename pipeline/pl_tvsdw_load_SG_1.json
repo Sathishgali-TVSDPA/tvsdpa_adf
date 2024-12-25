@@ -124,8 +124,18 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_tvsdw_sg",
-									"type": "DatasetReference"
+									"referenceName": "ds_source_stg",
+									"type": "DatasetReference",
+									"parameters": {
+										"pSchemaName": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pTableName": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						},
