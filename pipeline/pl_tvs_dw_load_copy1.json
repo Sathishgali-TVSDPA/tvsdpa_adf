@@ -427,7 +427,7 @@
 									},
 									"ExecutionGroup_Sequence_number": {
 										"value": {
-											"value": "@item().ExecutionGroup_Sequence_number",
+											"value": "@item().Execution_Group_Sequence_Number\n",
 											"type": "Expression"
 										},
 										"type": "String"
