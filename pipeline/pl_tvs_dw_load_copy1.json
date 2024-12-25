@@ -290,7 +290,7 @@
 									"upsertSettings": {
 										"useTempDB": true,
 										"keys": {
-											"value": "@item().Upsert_key_Column_Names\r\n",
+											"value": "@array(item().Upsert_key_Column_Names)",
 											"type": "Expression"
 										}
 									},
