@@ -402,11 +402,11 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]",
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Execution_Log_NN]",
 								"storedProcedureParameters": {
 									"Pipeline_Id": {
 										"value": {
-											"value": "@pipeline().GroupId",
+											"value": "@pipeline().RunId",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -419,76 +419,51 @@
 										"type": "String"
 									},
 									"Execution_Group_Name": {
+										"value": "DimensionTables",
+										"type": "String"
+									},
+									"PipeLine_Trigger_Id": {
 										"value": {
-											"value": "@item().Execution_Group_Name",
+											"value": "@pipeline().TriggerId",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"ExecutionGroup_Sequence_number": {
+									"PipeLine_Trigger_Name": {
 										"value": {
-											"value": "@item().Execution_Group_Name",
+											"value": "@pipeline().TriggerName",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"Target_Table_Full_Name": {
+									"PipeLine_Trigger_Type_Name": {
 										"value": {
-											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
+											"value": "@pipeline().TriggerType",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"Data_Load_Type_Flag": {
-										"value": "Incremental",
-										"type": "String"
-									},
-									"CopyActivity_Rows_Read_Count": {
-										"value": {
-											"value": "@activity('Load_DW_Tables').output.rowsread",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"CopyActivity_Rows_Write_Count": {
-										"value": {
-											"value": "@activity('Load_DW_Tables').output.rowscopied",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"CopyActivity_Start_TimeStamp": {
+									"PipeLine_Start_TimeStamp": {
 										"value": {
 											"value": "@variables('vStartTime')",
 											"type": "Expression"
 										},
 										"type": "Datetime"
 									},
-									"CopyActivity_End_TimeStamp": {
+									"PipeLine_End_TimeStamp": {
 										"value": {
 											"value": "@utcNow()",
 											"type": "Expression"
 										},
 										"type": "Datetime"
 									},
-									"CopyActivity_Status_Name": {
-										"value": {
-											"value": "@activity('Load_DW_Tables').output.executionDetails[0].status",
-											"type": "Expression"
-										},
+									"PipeLine_Status": {
+										"value": "Sucess",
 										"type": "String"
 									},
-									"CopyActivity_Copy_Duration_In_Second": {
+									"PipeLine_Run_Duration": {
 										"value": null,
 										"type": "Int64"
-									},
-									"CopyActivity_Error_Code": {
-										"value": null,
-										"type": "String"
-									},
-									"CopyActivity_Error_Description": {
-										"value": null,
-										"type": "String"
 									}
 								}
 							},
