@@ -445,14 +445,14 @@
 									},
 									"CopyActivity_Rows_Read_Count": {
 										"value": {
-											"value": "@item().output.rowsread",
+											"value": "@activity('Load_DW_Tables').output.rowsread",
 											"type": "Expression"
 										},
 										"type": "Int64"
 									},
 									"CopyActivity_Rows_Write_Count": {
 										"value": {
-											"value": "@item().output.rowscopied",
+											"value": "@activity('Load_DW_Tables').output.rowscopied",
 											"type": "Expression"
 										},
 										"type": "Int64"
@@ -473,7 +473,7 @@
 									},
 									"CopyActivity_Status_Name": {
 										"value": {
-											"value": "@activity('Load_DW_Tables').output.ExecutionDeatils[0].Status",
+											"value": "@activity('Load_DW_Tables').output.executionDetails[0].status",
 											"type": "Expression"
 										},
 										"type": "String"
