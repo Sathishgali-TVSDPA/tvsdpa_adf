@@ -121,14 +121,7 @@
 			{
 				"name": "usp_ResetRestartIndicatorToOne_NN",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "ForEach1",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -152,7 +145,7 @@
 					{
 						"activity": "ForEach1",
 						"dependencyConditions": [
-							"Completed"
+							"Failed"
 						]
 					}
 				],
@@ -211,22 +204,22 @@
 								"value": "@pipeline().TriggerTime",
 								"type": "Expression"
 							},
-							"type": "Int64"
+							"type": "Datetime"
 						},
-						"CopyActivPipeLine_End_TimeStampity_Rows_Write_Count": {
+						"PipeLine_End_TimeStamp": {
 							"value": {
 								"value": "@utcNow()",
 								"type": "Expression"
 							},
-							"type": "Int64"
-						},
-						"CopyActiviPipeLine_Statusty_Start_TimeStamp": {
-							"value": "failure",
 							"type": "Datetime"
 						},
-						"CopyAPipeLine_Run_Durationctivity_End_TimeStamp": {
+						"PipeLine_Status": {
+							"value": "Failure",
+							"type": "String"
+						},
+						"PipeLine_Run_Duration": {
 							"value": null,
-							"type": "Datetime"
+							"type": "Int64"
 						}
 					}
 				},
