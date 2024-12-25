@@ -94,22 +94,22 @@
 								"value": "@pipeline().TriggerTime",
 								"type": "Expression"
 							},
-							"type": "Int64"
+							"type": "Datetime"
 						},
-						"CopyActivPipeLine_End_TimeStampity_Rows_Write_Count": {
+						"PipeLine_End_TimeStamp": {
 							"value": {
 								"value": "@utcNow()",
 								"type": "Expression"
 							},
-							"type": "Int64"
-						},
-						"CopyActiviPipeLine_Statusty_Start_TimeStamp": {
-							"value": "Succeeded",
 							"type": "Datetime"
 						},
-						"CopyAPipeLine_Run_Durationctivity_End_TimeStamp": {
+						"PipeLine_Status": {
 							"value": null,
-							"type": "Datetime"
+							"type": "String"
+						},
+						"PipeLine_End_TPipeLine_Run_DurationimeStamp": {
+							"value": null,
+							"type": "String"
 						}
 					}
 				},
