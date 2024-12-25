@@ -184,7 +184,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Execution_Log_NN]",
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]",
 								"storedProcedureParameters": {
 									"Pipeline_Id": {
 										"value": {
@@ -207,51 +207,67 @@
 										},
 										"type": "String"
 									},
-									"PipeLine_Trigger_Id": {
+									"ExecutionGroup_Sequence_number": {
 										"value": {
-											"value": "@pipeline().TriggerId",
+											"value": "@item().Execution_Group_Name",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"PipeLine_Trigger_Name": {
+									"Target_Table_Full_Name": {
 										"value": {
-											"value": "@pipeline().TriggerName",
+											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"PipeLine_Trigger_Type_Name": {
-										"value": {
-											"value": "@pipeline().TriggerType",
-											"type": "Expression"
-										},
+									"Data_Load_Type_Flag": {
+										"value": "Incremental",
 										"type": "String"
 									},
-									"PipeLine_Start_TimeStamp": {
+									"CopyActivity_Rows_Read_Count": {
+										"value": {
+											"value": "@item().output.rowsread",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Rows_Write_Count": {
+										"value": {
+											"value": "@item().output.rowscopied",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Start_TimeStamp": {
 										"value": {
 											"value": "@variables('vStartTime')",
 											"type": "Expression"
 										},
 										"type": "Datetime"
 									},
-									"PipeLine_End_TimeStamp": {
+									"CopyActivity_End_TimeStamp": {
 										"value": {
 											"value": "@utcNow()",
 											"type": "Expression"
 										},
 										"type": "Datetime"
 									},
-									"PipeLine_Status": {
-										"value": {
-											"value": "@item().status",
-											"type": "Expression"
-										},
+									"CopyActivity_Status_Name": {
+										"value": "",
 										"type": "String"
 									},
-									"PipeLine_Run_Duration": {
+									"CopyActivity_Copy_Duration_In_Second": {
 										"value": null,
 										"type": "Int64"
+									},
+									"CopyActivity_Error_Code": {
+										"value": "",
+										"type": "String"
+									},
+									"CopyActivity_Error_Description": {
+										"value": "",
+										"type": "String"
 									}
 								}
 							},
