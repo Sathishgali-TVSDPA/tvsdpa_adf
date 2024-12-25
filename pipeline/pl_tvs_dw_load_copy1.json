@@ -64,7 +64,7 @@
 							},
 							"type": "String"
 						},
-						"ExecutionGroup_Name": {
+						"Execution_Group_Name": {
 							"value": "DimensionTables",
 							"type": "String"
 						},
