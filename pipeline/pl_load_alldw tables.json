@@ -199,7 +199,7 @@
 											"value": "@item().ExecutionGroup_Sequence_number",
 											"type": "Expression"
 										},
-										"type": "String"
+										"type": "Int64"
 									},
 									"Target_Table_Full_Name": {
 										"value": {
