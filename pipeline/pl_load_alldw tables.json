@@ -250,10 +250,6 @@
 										},
 										"type": "Int64"
 									},
-									"CopyActivity_Copy_Duration_In_Second": {
-										"value": null,
-										"type": "Int64"
-									},
 									"CopyActivity_Start_TimeStamp": {
 										"value": {
 											"value": "@formatDateTime(variables('Vstarttime'))",
