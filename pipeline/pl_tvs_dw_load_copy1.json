@@ -472,7 +472,7 @@
 										"type": "Datetime"
 									},
 									"CopyActivity_Status_Name": {
-										"value": null,
+										"value": "sucess",
 										"type": "String"
 									},
 									"CopyActivity_Copy_Duration_In_Second": {
