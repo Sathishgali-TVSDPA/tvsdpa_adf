@@ -159,7 +159,24 @@
 							}
 						},
 						{
-							"name": "Success Activity_Execution_Log_dlv",
+							"name": "Run Starttime",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Vstarttime",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Success Activity_Execution_Log_DLV",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -194,74 +211,58 @@
 										},
 										"type": "String"
 									},
-									"ExecutionGroup_Sequence_number": {
-										"value": {
-											"value": "@item().ExecutionGroup_Sequence_number",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"Target_Table_Full_Name": {
-										"value": {
-											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"Data_Load_Type_Flag": {
-										"value": "Incremental",
-										"type": "String"
-									},
-									"CopyActivity_Rows_Read_Count": {
-										"value": {
-											"value": "@activity('Copy_Load dw tables').output.rowsread",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"CopyActivity_Rows_Write_Count": {
-										"value": {
-											"value": "@activity('Copy_Load dw tables').output.rowscopied",
-											"type": "Expression"
-										},
-										"type": "Int64"
-									},
-									"CopyActivity_Start_TimeStamp": {
-										"value": {
-											"value": "@formatDateTime(variables('Vstarttime'))",
-											"type": "Expression"
-										},
-										"type": "Datetime"
-									},
-									"CopyActivity_End_TimeStamp": {
-										"value": {
-											"value": "@utcNow()",
-											"type": "Expression"
-										},
-										"type": "Datetime"
-									},
-									"CopyActivity_Status_Name": {
-										"value": {
-											"value": "@activity('Copy_Load dw tables').output.executionDetails[0].status",
-											"type": "Expression"
-										},
-										"type": "String"
-									},
-									"CopyActivity_Error_Code": {
-										"value": null
-									},
-									"CopyActivity_Error_Description": {
-										"value": null
-									},
-									"CopyActivity_Copy_Duration_In_Second": {
-										"value": null,
-										"type": "Int64"
-									},
 									"ExecutionGroup_Name": {
 										"value": {
 											"value": "@item().ExecutionGroup_Name",
 											"type": "Expression"
 										},
+										"type": "String"
+									},
+									"ExecutionGroup_Sequence_number": {
+										"value": {
+											"value": "@item().ExecutionGroup_Sequence_number",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Target_Table_Full_Name": {
+										"value": "",
+										"type": "String"
+									},
+									"Data_Load_Type_Flag": {
+										"value": "",
+										"type": "String"
+									},
+									"CopyActivity_Rows_Read_Count": {
+										"value": "",
+										"type": "Int64"
+									},
+									"CopyActivity_Rows_Write_Count": {
+										"value": "",
+										"type": "Int64"
+									},
+									"CopyActivity_Copy_Duration_In_Second": {
+										"value": null,
+										"type": "Int64"
+									},
+									"CopyActivity_Start_TimeStamp": {
+										"value": "",
+										"type": "Datetime"
+									},
+									"CopyActivity_End_TimeStamp": {
+										"value": "",
+										"type": "Datetime"
+									},
+									"CopyActivity_Status_Name": {
+										"value": "",
+										"type": "String"
+									},
+									"CopyActivity_Error_Code": {
+										"value": "",
+										"type": "String"
+									},
+									"CopyActivity_Error_Description": {
+										"value": "",
 										"type": "String"
 									}
 								}
@@ -269,23 +270,6 @@
 							"linkedServiceName": {
 								"referenceName": "ls_tvsdw_lalith",
 								"type": "LinkedServiceReference"
-							}
-						},
-						{
-							"name": "Run Starttime",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "Vstarttime",
-								"value": {
-									"value": "@utcNow()",
-									"type": "Expression"
-								}
 							}
 						}
 					]
