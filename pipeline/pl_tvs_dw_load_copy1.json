@@ -31,8 +31,6 @@
 			{
 				"name": "Success usp_Load_Pipeline_Execution_Log_NN",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -123,8 +121,6 @@
 			{
 				"name": "usp_ResetRestartIndicatorToOne_NN",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
@@ -152,8 +148,6 @@
 			{
 				"name": "fail usp_Load_Pipeline_Execution_Log_NN_copy1",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "ForEach1",
