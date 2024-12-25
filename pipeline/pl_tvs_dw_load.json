@@ -254,7 +254,7 @@
 										"type": "Datetime"
 									},
 									"CopyActivity_Status_Name": {
-										"value": "",
+										"value": "@activity('Copy_Load dw tables').output.executionDetails[0].status",
 										"type": "String"
 									},
 									"CopyActivity_Copy_Duration_In_Second": {
@@ -262,11 +262,11 @@
 										"type": "Int64"
 									},
 									"CopyActivity_Error_Code": {
-										"value": "",
+										"value": null,
 										"type": "String"
 									},
 									"CopyActivity_Error_Description": {
-										"value": "",
+										"value": null,
 										"type": "String"
 									}
 								}
