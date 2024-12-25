@@ -1,0 +1,12 @@
+{
+	"name": "ds_source_tvsdw_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
