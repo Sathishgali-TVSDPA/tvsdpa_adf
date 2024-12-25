@@ -472,7 +472,10 @@
 										"type": "Datetime"
 									},
 									"CopyActivity_Status_Name": {
-										"value": "sucess",
+										"value": {
+											"value": "@activity('Load_DW_Tables').output.executionDetails[0].status",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"CopyActivity_Copy_Duration_In_Second": {
