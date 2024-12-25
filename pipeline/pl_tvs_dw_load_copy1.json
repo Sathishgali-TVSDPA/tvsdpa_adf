@@ -107,7 +107,7 @@
 							"value": null,
 							"type": "String"
 						},
-						"PipeLine_End_TPipeLine_Run_DurationimeStamp": {
+						"PipeLine_Run_Duration": {
 							"value": null,
 							"type": "Int64"
 						}
