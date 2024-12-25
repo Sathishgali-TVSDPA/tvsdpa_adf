@@ -1,0 +1,15 @@
+{
+	"name": "ds_Source_tvsdw_sg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_sathish",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Sathish"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
