@@ -41,7 +41,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('load dw tables').output.value",
+						"value": "@activity('load_dw_tables').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -64,7 +64,7 @@
 							}
 						},
 						{
-							"name": "load dwtables",
+							"name": "Load_DW_Tables",
 							"type": "Copy",
 							"dependsOn": [
 								{
@@ -134,7 +134,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "load dwtables",
+									"activity": "Load_DW_Tables",
 									"dependencyConditions": [
 										"Succeeded"
 									]
