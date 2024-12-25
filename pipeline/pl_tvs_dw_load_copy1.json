@@ -418,7 +418,7 @@
 										},
 										"type": "String"
 									},
-									"Execution_Group_Name": {
+									"ExecutionGroup_Name": {
 										"value": {
 											"value": "@item().Execution_Group_Name",
 											"type": "Expression"
