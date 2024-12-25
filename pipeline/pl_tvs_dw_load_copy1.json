@@ -557,7 +557,7 @@
 									},
 									"CopyActivity_Rows_Write_Count": {
 										"value": {
-											"value": "@item().output.rowscopied",
+											"value": "@activity('load dw tables').output.rowscopied",
 											"type": "Expression"
 										},
 										"type": "Int64"
