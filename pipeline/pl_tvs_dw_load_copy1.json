@@ -493,6 +493,111 @@
 								"referenceName": "ls_tvsdw_naveen",
 								"type": "LinkedServiceReference"
 							}
+						},
+						{
+							"name": "uspLoadPipelineActivityExecutionLogNN_copy1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_NN]",
+								"storedProcedureParameters": {
+									"Pipeline_Id": {
+										"value": {
+											"value": "@pipeline().GroupId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Pipeline_Name": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ExecutionGroup_Name": {
+										"value": {
+											"value": "@item().Execution_Group_Name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ExecutionGroup_Sequence_number": {
+										"value": {
+											"value": "@item().Execution_Group_Name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Target_Table_Full_Name": {
+										"value": {
+											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Data_Load_Type_Flag": {
+										"value": "Incremental",
+										"type": "String"
+									},
+									"CopyActivity_Rows_Read_Count": {
+										"value": {
+											"value": "@activity('load dw tables').output.rowsread",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Rows_Write_Count": {
+										"value": {
+											"value": "@item().output.rowscopied",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Start_TimeStamp": {
+										"value": {
+											"value": "@variables('vStartTime')",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"CopyActivity_End_TimeStamp": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"CopyActivity_Status_Name": {
+										"value": "sucess",
+										"type": "String"
+									},
+									"CopyActivity_Copy_Duration_In_Second": {
+										"value": null,
+										"type": "Int64"
+									},
+									"CopyActivity_Error_Code": {
+										"value": null,
+										"type": "String"
+									},
+									"CopyActivity_Error_Description": {
+										"value": null,
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_naveen",
+								"type": "LinkedServiceReference"
+							}
 						}
 					]
 				}
