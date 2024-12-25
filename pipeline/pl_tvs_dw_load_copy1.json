@@ -459,7 +459,7 @@
 									},
 									"CopyActivity_Start_TimeStamp": {
 										"value": {
-											"value": "@variables('vStartTime')",
+											"value": "@formatDateTime(variables('vStartTime'))",
 											"type": "Expression"
 										},
 										"type": "Datetime"
