@@ -233,7 +233,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('load dw tables').output.value",
+						"value": "@activity('load dw tables').output.values",
 						"type": "Expression"
 					},
 					"activities": [
