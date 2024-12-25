@@ -24,7 +24,8 @@
 					"dataset": {
 						"referenceName": "ds_tvsdw_naveen",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
