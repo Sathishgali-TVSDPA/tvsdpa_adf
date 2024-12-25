@@ -106,10 +106,6 @@
 						"PipeLine_Status": {
 							"value": null,
 							"type": "String"
-						},
-						"PipeLine_Run_Duration": {
-							"value": null,
-							"type": "Int64"
 						}
 					}
 				},
@@ -223,10 +219,6 @@
 						"PipeLine_Status": {
 							"value": "Failure",
 							"type": "String"
-						},
-						"PipeLine_Run_Duration": {
-							"value": null,
-							"type": "Int64"
 						}
 					}
 				},
