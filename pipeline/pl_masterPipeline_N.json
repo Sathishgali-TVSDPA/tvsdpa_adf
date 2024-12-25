@@ -114,6 +114,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_load_dimmarket",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			},
