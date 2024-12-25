@@ -94,17 +94,7 @@
 							"inputs": [
 								{
 									"referenceName": "ds_tvsdw_naveen",
-									"type": "DatasetReference",
-									"parameters": {
-										"pSourceTableName": {
-											"value": "@item().Source_Table_Name",
-											"type": "Expression"
-										},
-										"pSourceSchemaName": {
-											"value": "@item().Source_Schema_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
