@@ -41,13 +41,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('load dw tables').output",
+						"value": "@activity('load dw tables').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Set variable1",
+							"name": "ReadStartTime",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"policy": {
@@ -68,7 +68,7 @@
 							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "ReadStartTime",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -85,6 +85,10 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
+									"sqlReaderStoredProcedureName": {
+										"value": "@item().Incremental_Load_Sql_Script",
+										"type": "Expression"
+									},
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -250,10 +254,7 @@
 										"type": "Datetime"
 									},
 									"CopyActivity_Status_Name": {
-										"value": {
-											"value": "@activity('Copy_Load dw tables').output.executionDetails[0].status",
-											"type": "Expression"
-										},
+										"value": null,
 										"type": "String"
 									},
 									"CopyActivity_Copy_Duration_In_Second": {
@@ -276,7 +277,7 @@
 							}
 						},
 						{
-							"name": "Error usp_Load_Pipeline_Activity_Execution_Log_NN",
+							"name": "fail usp_Load_Pipeline_Activity_Execution_Log_NN_copy1",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -299,7 +300,7 @@
 								"storedProcedureParameters": {
 									"Pipeline_Id": {
 										"value": {
-											"value": "@pipeline().RunId",
+											"value": "@pipeline().GroupId",
 											"type": "Expression"
 										},
 										"type": "String"
@@ -318,51 +319,67 @@
 										},
 										"type": "String"
 									},
-									"PipeLine_Trigger_Id": {
+									"ExecutionGroup_Sequence_number": {
 										"value": {
-											"value": "@pipeline().TriggerId",
+											"value": "@item().Execution_Group_Name",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"PipeLine_Trigger_Name": {
+									"Target_Table_Full_Name": {
 										"value": {
-											"value": "@pipeline().TriggerName",
+											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
 											"type": "Expression"
 										},
 										"type": "String"
 									},
-									"PipeLine_Trigger_Type_Name": {
-										"value": {
-											"value": "@pipeline().TriggerType",
-											"type": "Expression"
-										},
+									"Data_Load_Type_Flag": {
+										"value": "Incremental",
 										"type": "String"
 									},
-									"PipeLine_Start_TimeStamp": {
+									"CopyActivity_Rows_Read_Count": {
+										"value": {
+											"value": "@item().output.rowsread",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Rows_Write_Count": {
+										"value": {
+											"value": "@item().output.rowscopied",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Start_TimeStamp": {
 										"value": {
 											"value": "@variables('vStartTime')",
 											"type": "Expression"
 										},
 										"type": "Datetime"
 									},
-									"PipeLine_End_TimeStamp": {
+									"CopyActivity_End_TimeStamp": {
 										"value": {
 											"value": "@utcNow()",
 											"type": "Expression"
 										},
 										"type": "Datetime"
 									},
-									"PipeLine_Status": {
-										"value": {
-											"value": "@item().status",
-											"type": "Expression"
-										},
+									"CopyActivity_Status_Name": {
+										"value": "@activity('Load_DW_Tables').output.executionDetails[0].status",
 										"type": "String"
 									},
-									"PipeLine_Run_Duration": {
+									"CopyActivity_Copy_Duration_In_Second": {
 										"value": null,
 										"type": "Int64"
+									},
+									"CopyActivity_Error_Code": {
+										"value": "@activity('Load_DW_Tables').error.errorcode",
+										"type": "String"
+									},
+									"CopyActivity_Error_Description": {
+										"value": "@activity('Load_DW_Tables').error.message",
+										"type": "String"
 									}
 								}
 							},
@@ -414,55 +431,33 @@
 							"value": "DimensionTables",
 							"type": "String"
 						},
-						"ExecutionGroup_Sequence_number": {
-							"value": null,
+						"PipeLine_Trigger_Id": {
+							"value": "@pipeline().TriggerId",
 							"type": "String"
 						},
-						"Target_Table_Full_Name": {
-							"value": null,
+						"PipeLine_Trigger_Name": {
+							"value": "@pipeline().TriggerName",
 							"type": "String"
 						},
-						"Data_Load_Type_Flag": {
-							"value": null,
+						"PipeLine_Trigger_Type_Name": {
+							"value": "@pipeline().TriggerType",
 							"type": "String"
 						},
-						"CopyActivity_Rows_Read_Count": {
-							"value": null,
+						"PipeLine_Start_TimeStamp": {
+							"value": "@pipeline().TriggerTime",
 							"type": "Int64"
 						},
-						"CopyActivity_Rows_Write_Count": {
-							"value": null,
+						"CopyActivPipeLine_End_TimeStampity_Rows_Write_Count": {
+							"value": "@utcNow()",
 							"type": "Int64"
 						},
-						"CopyActivity_Start_TimeStamp": {
-							"value": {
-								"value": "@pipeline().TriggerTime",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"CopyActivity_End_TimeStamp": {
-							"value": {
-								"value": "@utcNow()",
-								"type": "Expression"
-							},
-							"type": "Datetime"
-						},
-						"CopyActivity_Status_Name": {
+						"CopyActiviPipeLine_Statusty_Start_TimeStamp": {
 							"value": "Succeeded",
-							"type": "String"
+							"type": "Datetime"
 						},
-						"CopyActivity_Copy_Duration_In_Second": {
+						"CopyAPipeLine_Run_Durationctivity_End_TimeStamp": {
 							"value": null,
-							"type": "Int64"
-						},
-						"CopyActivity_Error_Code": {
-							"value": null,
-							"type": "String"
-						},
-						"CopyActivity_Error_Description": {
-							"value": null,
-							"type": "String"
+							"type": "Datetime"
 						}
 					}
 				},
@@ -492,6 +487,81 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[FWK].[usp_ResetRestartIndicatorToOne_NN]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "fail usp_Load_Pipeline_Execution_Log_NN_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Execution_Log_NN]",
+					"storedProcedureParameters": {
+						"Pipeline_ID": {
+							"value": {
+								"value": "@pipeline().GroupId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Pipeline_Name": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"ExecutionGroup_Name": {
+							"value": "DimensionTables",
+							"type": "String"
+						},
+						"PipeLine_Trigger_Id": {
+							"value": "@pipeline().TriggerId",
+							"type": "String"
+						},
+						"PipeLine_Trigger_Name": {
+							"value": "@pipeline().TriggerName",
+							"type": "String"
+						},
+						"PipeLine_Trigger_Type_Name": {
+							"value": "@pipeline().TriggerType",
+							"type": "String"
+						},
+						"PipeLine_Start_TimeStamp": {
+							"value": "@pipeline().TriggerTime",
+							"type": "Int64"
+						},
+						"CopyActivPipeLine_End_TimeStampity_Rows_Write_Count": {
+							"value": "@utcNow()",
+							"type": "Int64"
+						},
+						"CopyActiviPipeLine_Statusty_Start_TimeStamp": {
+							"value": "failure",
+							"type": "Datetime"
+						},
+						"CopyAPipeLine_Run_Durationctivity_End_TimeStamp": {
+							"value": null,
+							"type": "Datetime"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_tvsdw_naveen",
