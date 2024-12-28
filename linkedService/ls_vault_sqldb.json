@@ -1,0 +1,10 @@
+{
+	"name": "ls_vault_sqldb",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kvtvsdpa.vault.azure.net/"
+		}
+	}
+}
