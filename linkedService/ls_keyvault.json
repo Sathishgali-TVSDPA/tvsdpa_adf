@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureKeyVault",
 		"typeProperties": {
-			"baseUrl": "https://kvtvsdpa.vault.azure.net/secrets/tvsdwsqlpassword/eedcd2c70f1d40d085d1a862bdaf48a2"
+			"baseUrl": "https://kvtvsdpa.vault.azure.net/"
 		}
 	}
 }
