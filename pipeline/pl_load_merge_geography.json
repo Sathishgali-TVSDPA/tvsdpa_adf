@@ -1,0 +1,31 @@
+{
+	"name": "pl_load_merge_geography",
+	"properties": {
+		"activities": [
+			{
+				"name": "Stored procedure for geography",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[DW].[usp_load_stg_dimgeography_merge_NN]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_naveen",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Naveen/12302024Merge"
+		},
+		"annotations": []
+	}
+}
