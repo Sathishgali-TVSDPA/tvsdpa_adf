@@ -55,9 +55,6 @@
 		"parameters": {
 			"pExecutionType": {
 				"type": "string"
-			},
-			"pstg": {
-				"type": "String"
 			}
 		},
 		"folder": {
