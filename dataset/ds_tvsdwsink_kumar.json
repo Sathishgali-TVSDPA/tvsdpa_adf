@@ -1,0 +1,30 @@
+{
+	"name": "ds_tvsdwsink_kumar",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_tvsdw_kumar",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"psinkschemaname": {
+				"type": "String"
+			},
+			"psinksinktablename": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().psinkschemaname",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().psinksinktablename",
+				"type": "Expression"
+			}
+		}
+	}
+}

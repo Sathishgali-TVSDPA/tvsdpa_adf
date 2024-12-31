@@ -107,18 +107,8 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_tvsdw_kumar",
-									"type": "DatasetReference",
-									"parameters": {
-										"P_SinkSchema": {
-											"value": "@item().Target_Schema_Name",
-											"type": "Expression"
-										},
-										"p_Sinktablename": {
-											"value": "@item().Target_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "ds_tvsdwsink_kumar",
+									"type": "DatasetReference"
 								}
 							]
 						},
