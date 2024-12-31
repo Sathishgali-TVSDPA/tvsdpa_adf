@@ -5,6 +5,14 @@
 			"referenceName": "ls_tvsdw_kumar",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"P_SinkSchema": {
+				"type": "String"
+			},
+			"p_Sinktablename": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Kumar"
 		},
@@ -170,8 +178,14 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "stg",
-			"table": "StagingTVS_Kumar"
+			"schema": {
+				"value": "@dataset().P_SinkSchema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().p_Sinktablename",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

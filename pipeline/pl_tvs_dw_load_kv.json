@@ -107,7 +107,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_tvsdw",
+									"referenceName": "ds_tvsdw_kumar",
 									"type": "DatasetReference"
 								}
 							]
