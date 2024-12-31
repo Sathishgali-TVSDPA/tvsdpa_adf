@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "Select * from [FWK].[ADF_Pipeline_Configuration_KV] \nwhere execution_group_name <> 'STG' and Is_Restart_indicator =1 and IS_Active_Table_Indicator =1 and Pipeline_Config_ID =25\nORDER BY Execution_Group_Sequence_Number",
+						"sqlReaderQuery": "Select * from [FWK].[ADF_Pipeline_Configuration_KV] \nwhere execution_group_name <> 'STG' and Is_Restart_indicator =1 and IS_Active_Table_Indicator =1\nORDER BY Execution_Group_Sequence_Number",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
