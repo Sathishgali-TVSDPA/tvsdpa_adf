@@ -108,7 +108,17 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdwsink_kumar",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"psinkschemaname": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"psinksinktablename": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						},
