@@ -178,14 +178,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().P_SinkSchema",
-				"type": "Expression"
-			},
-			"table": {
-				"value": "@dataset().p_Sinktablename",
-				"type": "Expression"
-			}
+			"schema": "stg",
+			"table": "StagingTVS_Kumar"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
