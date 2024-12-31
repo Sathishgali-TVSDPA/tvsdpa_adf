@@ -96,17 +96,7 @@
 							"outputs": [
 								{
 									"referenceName": "ds_tvsdw",
-									"type": "DatasetReference",
-									"parameters": {
-										"pSinkSchemaName": {
-											"value": "@item().Target_Schema_Name",
-											"type": "Expression"
-										},
-										"pSinkTableName": {
-											"value": "@item().Target_Table_Name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						}
