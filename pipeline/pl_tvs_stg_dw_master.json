@@ -1,6 +1,24 @@
 {
 	"name": "pl_tvs_stg_dw_master",
 	"properties": {
+		"activities": [
+			{
+				"name": "Execute pl_tvs_stg_load_KV",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pl_tvs_stg_load_KV",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
 		"folder": {
 			"name": "Kumar/Framework"
 		},
