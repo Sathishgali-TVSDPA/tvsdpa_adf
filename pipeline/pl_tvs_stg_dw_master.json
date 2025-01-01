@@ -14,10 +14,31 @@
 					},
 					"cases": [
 						{
-							"value": "Case1",
+							"value": "STG",
 							"activities": [
 								{
-									"name": "Execute DIM Pipeline",
+									"name": "Execute STG Pipeline",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_tvsdw_load_SG",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true
+									}
+								}
+							]
+						},
+						{
+							"value": "DIM",
+							"activities": [
+								{
+									"name": "Execute Dim Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"policy": {
@@ -33,24 +54,6 @@
 									}
 								}
 							]
-						}
-					],
-					"defaultActivities": [
-						{
-							"name": "Execute STG Pipeline",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"policy": {
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pl_tvsdw_load_SG",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true
-							}
 						}
 					]
 				}
