@@ -1,0 +1,510 @@
+{
+	"name": "pl_tvsdw_load_SG_Parameters",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetConfigTableData",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "Select * from [FWK].[ADF_Pipeline_Configuration_SG] \nwhere execution_group_name <> 'STG' and Is_Restart_indicator =1 and IS_Active_Table_Indicator =1\nORDER BY Execution_Group_Sequence_Number",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_source_fwk",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "LoopDWTables",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "GetConfigTableData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetConfigTableData').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "ReadStartTime",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "vStartTime",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Load DW Tables",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "ReadStartTime",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderStoredProcedureName": {
+										"value": "@item().Incremental_Load_Sql_Script",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true,
+										"keys": {
+											"value": "@array(item().Upsert_key_Column_Names)",
+											"type": "Expression"
+										}
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_Source_tvsdw_sg",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_source_stg",
+									"type": "DatasetReference",
+									"parameters": {
+										"pSchemaName": {
+											"value": "@item().Target_Schema_Name",
+											"type": "Expression"
+										},
+										"pTableName": {
+											"value": "@item().Target_Table_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "usp_ResetRestartIndicator_SG",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Load DW Tables",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[FWK].[usp_ResetRestartIndicator_SG]",
+								"storedProcedureParameters": {
+									"Pipeline_Config_ID": {
+										"value": {
+											"value": "@item().Pipeline_Config_ID",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_sathish",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Success usp_Load_Pipeline_Activity_Execution_Log_SG",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "usp_ResetRestartIndicator_SG",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Activity_Execution_Log_SG]",
+								"storedProcedureParameters": {
+									"Pipeline_ID": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Pipeline_Name": {
+										"value": {
+											"value": "@pipeline().Pipeline",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ExecutionGroup_Name": {
+										"value": {
+											"value": "@item().Execution_Group_Name",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ExecutionGroup_Sequence_number": {
+										"value": {
+											"value": "@item().Execution_Group_Sequence_Number",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Target_Table_Full_Name": {
+										"value": {
+											"value": "@concat(item().Target_Schema_Name,'.',item().Target_Table_Name)",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"Data_Load_Type_Flag": {
+										"value": "Incremental",
+										"type": "String"
+									},
+									"CopyActivity_Rows_Read_Count": {
+										"value": {
+											"value": "@activity('Load DW Tables').output.rowsread",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Rows_Write_Count": {
+										"value": {
+											"value": "@activity('Load DW Tables').output.rowscopied",
+											"type": "Expression"
+										},
+										"type": "Int64"
+									},
+									"CopyActivity_Start_TimeStamp": {
+										"value": {
+											"value": "@formatDateTime(variables('vStartTime'))",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"CopyActivity_End_TimeStamp": {
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										},
+										"type": "Datetime"
+									},
+									"CopyActivity_Status_Name": {
+										"value": {
+											"value": "@activity('Load DW Tables').output.executionDetails[0].status",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"CopyActivity_Error_Code": {
+										"value": null,
+										"type": "String"
+									},
+									"CopyActivity_Error_Description": {
+										"value": null,
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "ls_tvsdw_sathish",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Success usp_Load_Pipeline_Execution_Log_SG",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "LoopDWTables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Execution_Log_SG]",
+					"storedProcedureParameters": {
+						"Pipeline_Id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Pipeline_Name": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Execution_Group_Name": {
+							"value": "DimensionTables",
+							"type": "String"
+						},
+						"PipeLine_Trigger_Id": {
+							"value": {
+								"value": "@pipeline().TriggerId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipeLine_Trigger_Name": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipeLine_Trigger_Type_Name": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipeLine_Start_TimeStamp": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"PipeLine_End_TimeStamp": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"PipeLine_Status": {
+							"value": null,
+							"type": "String"
+						},
+						"PipeLine_Error_Message": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Failure usp_Load_Pipeline_Execution_Log_SG_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "LoopDWTables",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[EDWDBA].[usp_Load_Pipeline_Execution_Log_SG]",
+					"storedProcedureParameters": {
+						"Pipeline_Id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Pipeline_Name": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"Execution_Group_Name": {
+							"value": "DimensionTables",
+							"type": "String"
+						},
+						"PipeLine_Trigger_Id": {
+							"value": {
+								"value": "@pipeline().TriggerId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipeLine_Trigger_Name": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipeLine_Trigger_Type_Name": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipeLine_Start_TimeStamp": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"PipeLine_End_TimeStamp": {
+							"value": {
+								"value": "@utcNow()",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"PipeLine_Status": {
+							"value": "Failure",
+							"type": "String"
+						},
+						"PipeLine_Error_Message": {
+							"value": null,
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "usp_ResetRestartIndicatorToOne_SG",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "LoopDWTables",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[FWK].[usp_ResetRestartIndicatorToOne_SG]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_tvsdw_sathish",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"variables": {
+			"vStartTime": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Sathish/Framework"
+		},
+		"annotations": []
+	}
+}
