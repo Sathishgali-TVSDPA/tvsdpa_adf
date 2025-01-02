@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [FWK].[ADF_PIPELINE_CONFIGURATION_KV] \nWHERE EXECUTION_GROUP_NAME = 'STG'",
+						"sqlReaderQuery": "SELECT * FROM [FWK].[ADF_PIPELINE_CONFIGURATION_SG] \nWHERE EXECUTION_GROUP_NAME = 'STG'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
