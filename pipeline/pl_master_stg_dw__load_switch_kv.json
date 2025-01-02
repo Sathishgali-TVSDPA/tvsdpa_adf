@@ -1,6 +1,48 @@
 {
 	"name": "pl_master_stg_dw__load_switch_kv",
 	"properties": {
+		"activities": [
+			{
+				"name": "switch_pipelines",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@pipeline().parameters.pexecutiontype",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "STG",
+							"activities": [
+								{
+									"name": "Execute pl_tvs_stg_load_KV",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_tvs_stg_load_KV",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"pexecutiontype": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Kumar/Framework"
 		},
