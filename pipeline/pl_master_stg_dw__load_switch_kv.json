@@ -33,6 +33,27 @@
 									}
 								}
 							]
+						},
+						{
+							"value": "DIM",
+							"activities": [
+								{
+									"name": "Execute pl_tvs_dw_load_kv",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "pl_tvs_dw_load_kv",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true
+									}
+								}
+							]
 						}
 					]
 				}
