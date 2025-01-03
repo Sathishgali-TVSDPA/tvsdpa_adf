@@ -1,0 +1,20 @@
+{
+	"name": "pl_stg_dw_load_master",
+	"properties": {
+		"activities": [
+			{
+				"name": "Switch1",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"cases": []
+				}
+			}
+		],
+		"folder": {
+			"name": "Lalith/Framework"
+		},
+		"annotations": []
+	}
+}
